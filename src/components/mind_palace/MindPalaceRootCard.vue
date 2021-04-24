@@ -21,7 +21,7 @@
                     plain
                     v-if="$store.getters.getMindPalaceRootParentId"
                     color="red lighten-1"
-                    @click="$emit('deleteClick', node.id)"
+                    @click="$emit('delete', node)"
             >Delete</v-btn>
         </v-card-actions>
     </v-card>

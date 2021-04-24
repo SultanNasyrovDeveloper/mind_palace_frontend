@@ -20,28 +20,48 @@ const mutations = {
     setMindPalace: (state, newValue) => state.root = newValue,
     addMindPalaceNode(state, newNode) {
         let treeRoot = state.root;
+        let newNodeClean = {
+            id: newNode.id,
+            name: newNode.name,
+            parent: newNode.parent,
+            children: []
+        };
         let newNodeParentId = newNode.parent;
 
-        if (newNodeParentId === treeRoot) {
-            treeRoot.children.push(newNode);
+        if (newNodeParentId === treeRoot.id) {
+            treeRoot.children.push(newNodeClean);
             return
         }
-
+        debugger;
         const rootChildrenIds = treeRoot.children.map(child => child.id);
         if (rootChildrenIds.includes(newNodeParentId)) {
             for (let i = 0; i < treeRoot.children.length; i++) {
                 if (treeRoot.children[i].id === newNodeParentId) {
-                    debugger;
-                    treeRoot.children[i].subnodes.push(newNode);
-                    break;
+                    const parent = state.root.children[i];
+                    parent.children.push(newNodeClean);
+                    return;
                 }
             }
         }
     },
     setCurrentNode: (state, newNode) => state.currentNode = newNode,
-    deleteNode(state, nodeId) {
-        console.log('Removing mind palace from ')
+    removePalaceNode(state, nodeId) {
+        if (nodeId === state.root.id) { state.root = {}; return; }
+        for (const child of state.root.children) {
+            if (child.id === nodeId) {
+                state.root.children.splice(state.root.children.indexOf(child), 1);
+                return
+            }
+            for (const subnode of child.children) {
+                if (subnode.id === nodeId) {
+                    child.children.splice(child.children.indexOf(subnode), 1);
+                    return;
+                }
+            }
+        }
     }
+
+
 };
 
 const actions = {
@@ -76,7 +96,14 @@ const actions = {
                 console.log(error);
             })
     },
-    deleteNode() {
+    deleteNode({ commit }, nodeId) {
+        return client.delete(`neuron/neurons/${nodeId}`)
+            .then(response => {
+                commit('removePalaceNode', nodeId);
+            })
+            .catch(error => {
+                console.log(error);
+            })
 
     }
 

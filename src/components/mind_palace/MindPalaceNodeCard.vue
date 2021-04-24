@@ -18,13 +18,13 @@
                     color="green lighten-1"
                     @click="$emit('createSubnode', node.id)"
             >Create subnode</v-btn>
-            <v-btn x-small plain color="red lighten-1" @click="$emit('deleteClick', node.id)">Delete</v-btn>
+            <v-btn x-small plain color="red lighten-1" @click="$emit('deleteClick', node)">Delete</v-btn>
         </v-card-subtitle>
         <div style="overflow-y: scroll; height: 200px;">
             <v-list>
                 <v-list-item
                         dense
-                        v-for="subnode in node.subnodes"
+                        v-for="subnode in node.children"
                         :key="subnode.id"
                 >
                     <v-row>
@@ -40,7 +40,7 @@
                                     x-small
                                     color="red lighten-2"
                                     style="cursor: pointer;"
-                                    @click="$emit('deleteClick', subnode.id)"
+                                    @click="$emit('deleteClick', subnode)"
                             >
                                 mdi-delete-outline
                             </v-icon>

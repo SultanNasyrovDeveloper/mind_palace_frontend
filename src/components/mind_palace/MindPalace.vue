@@ -14,6 +14,7 @@
             <v-col cols="12" sm="6" md="4">
                 <mind-palace-root-card
                         :node="palaceData"
+                        @delete="confirmNodeDelete"
                         @createSubnode="openCreateSubnodeForm"
                         @detailClick="(nodeId) => $emit('nodeDetailClick', nodeId)"
                 ></mind-palace-root-card>
@@ -36,11 +37,17 @@
             </v-col>
         </v-row>
         <!-- Node delete confirmation modal -->
-        <node-delete-confirmation-modal
-                :dialog="nodeDeleteConfirmationModal"
-                :nodeId="nodeToDeleteId"
-                @cancel="nodeDeleteConfirmationModal = false"
-        ></node-delete-confirmation-modal>
+        <v-dialog
+            v-model="nodeDeleteConfirmationModal"
+            max-width="600"
+        >
+            <node-delete-confirmation-card
+                :node="nodeToDelete"
+                @close="nodeDeleteConfirmationModal = false"
+                @delete="handleNodeDeletion"
+            ></node-delete-confirmation-card>
+        </v-dialog>
+
         <!-- Node create modal -->
         <v-dialog
                 v-model="nodeCreateModal"
@@ -60,28 +67,28 @@
 
     import MindPalaceRootCard from '@/components/mind_palace/MindPalaceRootCard'
     import MindPalaceNodeCard from '@/components/mind_palace/MindPalaceNodeCard'
-    import NodeDeleteConfirmationModal from '@/components/mind_palace/NodeDeleteConfirmationModal'
     import NodeCreateSimpleForm from '@/components/mind_palace/NodeCreateSimpleForm'
+    import NodeDeleteConfirmationCard from '@/components/mind_palace/NodeDeleteConfirmationCard'
 
     export default {
         name: "MindPalace",
         components: {
-            MindPalaceRootCard, MindPalaceNodeCard, NodeDeleteConfirmationModal, NodeCreateSimpleForm
+            MindPalaceRootCard, MindPalaceNodeCard, NodeCreateSimpleForm, NodeDeleteConfirmationCard
         },
         props: ['palaceData'],
         data() {
             return {
-                nodeDeleteConfirmationModal: false,
-                nodeToDeleteId: null,
-
                 nodeCreateModal: false,
-                nodeToCreateParentId: null
+                nodeToCreateParentId: null,
+
+                nodeToDelete: null,
+                nodeDeleteConfirmationModal: false
             }
         },
         methods: {
             ...mapActions(['createNode']),
-            confirmNodeDelete(nodeId) {
-                this.nodeToDeleteId = nodeId;
+            confirmNodeDelete(node) {
+                this.nodeToDelete = node;
                 this.nodeDeleteConfirmationModal = true;
             },
             openCreateSubnodeForm(parentId) {
@@ -93,6 +100,14 @@
                 this.nodeCreateModal = false;
                 this.nodeToCreateParentId = null;
 
+            },
+            async handleNodeDeletion(nodeId) {
+                await this.$store.dispatch('deleteNode', nodeId);
+                this.nodeDeleteConfirmationModal = false;
+                if (this.$store.getters.getMindPalace === {}) {
+                    this.$router.push({name: 'mypalace', params: { rootId: 1 }})
+                }
+                this.nodeToDelete = null;
             }
         }
     }
