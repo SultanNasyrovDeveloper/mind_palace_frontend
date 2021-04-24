@@ -26,16 +26,40 @@ const routes = [
                 name: 'index'
             },
             {
-                // base application vie
-                path: '/',
-                component: () => import('@/views/BaseApplicationView'),
-                children: [
-                    {
-                        path: 'dashboard/',
-                        component: () => import('@/views/DashboardView'),
-                        name: 'dashboard'
-                    }
-                ]
+                path: '/login',
+                component: () => import('@/views/LoginView'),
+                name: 'login'
+            },
+            {
+                path: '/signup',
+                component: () => import('@/views/SignupView'),
+                name: 'signup'
+            },
+            {
+                path: '/dashboard',
+                component: () => import('@/views/DashboardView'),
+                name: 'dashboard',
+                meta: { requiresAuth: true },
+            },
+            {
+                path: '/mypalace/:rootId/node/:nodeId',
+                component: () => import('@/views/MindPalaceView'),
+                name: 'mypalace.node',
+                props: true,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: '/mypalace/:rootId',
+                component: () => import('@/views/MindPalaceView'),
+                props: true,
+                name: 'mypalace',
+                meta: { requiresAuth: true }
+            },
+            {
+                path: '/profile',
+                component: () => import('@/views/UserProfileView'),
+                name: 'profile',
+                meta: { requiresAuth: true }
             },
             {
                 path: '/*',
@@ -48,6 +72,11 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   routes
+});
+
+router.beforeEach((to, from, next) => {
+    if (!store.getters.getUserIsLoggedIn && to.meta.requiresAuth) next({ 'name': 'login' });
+    else next();
 });
 
 export default router;

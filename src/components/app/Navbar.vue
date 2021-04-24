@@ -5,7 +5,7 @@
 
 <script>
     export default {
-        name: "RegisterView"
+        name: "Navbar"
     }
 </script>
 

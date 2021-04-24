@@ -10,3 +10,7 @@ export default {
     name: 'App'
 };
 </script>
+
+<style>
+    @import './assets/mdi/css/materialdesignicons.min.css';
+</style>
