@@ -14,13 +14,13 @@
             <v-col cols="12" sm="6" md="4">
                 <mind-palace-root-card
                         :node="palaceData"
+                        @detailClick="(nodeId) => $emit('nodeDetailClick', nodeId)"
                         @delete="confirmNodeDelete"
                         @createSubnode="openCreateSubnodeForm"
-                        @detailClick="(nodeId) => $emit('nodeDetailClick', nodeId)"
                 ></mind-palace-root-card>
             </v-col>
         </v-row>
-        <v-row no-gutters>
+        <v-row no-gutters justify="center">
             <v-col
                     cols="12"
                     sm="6"

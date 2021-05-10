@@ -1,7 +1,9 @@
 <template>
     <v-card>
         <v-card-title>
-            <span style="cursor: pointer !important;" @click="$emit('detailClick', node.id)">
+            <span
+                    style="cursor: pointer !important;"
+                    @click="node.parent ? $emit('detailClick', node.id) : null">
                 {{ node.name }}
             </span>
         </v-card-title>
@@ -11,7 +13,7 @@
             <span class="mr-3">Stat: 86</span>
             <span class="mr-3">Stat: 86</span>
         </v-card-subtitle>
-        <v-card-actions class="d-flex justify-center">
+        <v-card-actions class="d-flex justify-space-between">
             <v-btn
                     plain
                     color="green lighten-1"

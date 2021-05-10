@@ -1,5 +1,5 @@
 <template>
-    <v-card class="ma-1" height="300">
+    <v-card class="ma-1" max-height="350">
         <v-card-title>
             <span
                     class="body-2"
@@ -20,7 +20,7 @@
             >Create subnode</v-btn>
             <v-btn x-small plain color="red lighten-1" @click="$emit('deleteClick', node)">Delete</v-btn>
         </v-card-subtitle>
-        <div style="overflow-y: scroll; height: 200px;">
+        <div style="overflow-y: scroll; max-height: 220px;" v-if="node.children.length > 0">
             <v-list>
                 <v-list-item
                         dense

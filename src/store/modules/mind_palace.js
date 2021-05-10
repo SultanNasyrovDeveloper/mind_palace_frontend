@@ -32,7 +32,6 @@ const mutations = {
             treeRoot.children.push(newNodeClean);
             return
         }
-        debugger;
         const rootChildrenIds = treeRoot.children.map(child => child.id);
         if (rootChildrenIds.includes(newNodeParentId)) {
             for (let i = 0; i < treeRoot.children.length; i++) {
@@ -59,21 +58,10 @@ const mutations = {
                 }
             }
         }
-    }
-
-
+    },
 };
 
 const actions = {
-    async createNode({ commit }, nodeData) {
-        return client.post('/neuron/neurons/', nodeData)
-            .then(response => {
-                commit('addMindPalaceNode', response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    },
     async fetchMindPalace({ getters, commit }, rootId) {
         if (getters.getMindPalaceRootId === rootId) return;
         return client.get(`/neuron/neurons/${rootId}/subtree`)
@@ -85,7 +73,16 @@ const actions = {
                 console.log(error);
             })
     },
-    fetchMindPalaceNode({ getters, commit }, nodeId) {
+    async createNode({ commit }, nodeData) {
+        return client.post('/neuron/neurons/', nodeData)
+            .then(response => {
+                commit('addMindPalaceNode', response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    },
+    async fetchMindPalaceNode({ getters, commit }, nodeId) {
         if (getters.getCurrentNodeId === nodeId) return;
         return client.get(`neuron/neurons/${nodeId}`)
             .then(response => {
@@ -96,7 +93,19 @@ const actions = {
                 console.log(error);
             })
     },
-    deleteNode({ commit }, nodeId) {
+    async updateNode({ commit }, [nodeId, updateData]) {
+        return client.patch(`/neuron/neurons/${nodeId}/`, updateData)
+            .then(response => {
+                commit('setCurrentNode', response.data);
+                commit('setSnackbarText', 'Successfully update node.');
+                commit('setShowSnackbar', true);
+            })
+            .catch(error => {
+                commit('setSnackbarText', 'Error occured while updating node: ' + error);
+                commit('setShowSnackbar', true);
+            })
+    },
+    async deleteNode({ commit }, nodeId) {
         return client.delete(`neuron/neurons/${nodeId}`)
             .then(response => {
                 commit('removePalaceNode', nodeId);

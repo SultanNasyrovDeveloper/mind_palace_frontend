@@ -23,6 +23,12 @@
                     </v-list-item-icon>
                     <v-list-item-title>Login</v-list-item-title>
                 </v-list-item>
+                <v-list-item v-if="$store.getters.getUserIsLoggedIn" :to="{name: 'profile'}">
+                    <v-list-item-icon>
+                        <v-icon small>mdi-account</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>Profile</v-list-item-title>
+                </v-list-item>
                 <v-list-item v-if="$store.getters.getUserIsLoggedIn" @click="logout">
                     <v-list-item-icon>
                         <v-icon small>mdi-logout</v-icon>
