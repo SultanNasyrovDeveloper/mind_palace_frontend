@@ -1,13 +1,12 @@
 <template>
     <base-node-body>
         <template v-slot:card-name>{{ node.name }}</template>
+
         <template v-slot:options>
             <div>
                 <v-menu>
                     <template v-slot:activator="{ on , attrs }">
-                        <v-btn plain v-on="on">
-                            {{ node.body.language }}
-                        </v-btn>
+                        <v-btn plain v-on="on">{{ node.body.language }}</v-btn>
                     </template>
                     <v-list>
                         <v-list-item
@@ -24,15 +23,17 @@
                     :types="$store.getters.getEnums.neuron_types"
                     @change="updateData => $emit('change', updateData)"
                 ></node-type>
-                <v-btn dark color="green darken-2" class="ml-2" elevation="0">Save</v-btn>
+                <v-btn dark color="green darken-2" class="ml-2" elevation="0" @click="save">
+                    Save
+                </v-btn>
             </div>
         </template>
+
         <template v-slot:editor>
             <code-editor
-                    ref="cm"
                     :options="editorOptions"
                     v-model="editorContent"
-                    @change="onEditorChange"
+                    @input="onInput"
             ></code-editor>
         </template>
     </base-node-body>
@@ -110,8 +111,7 @@
         },
         computed: {
             nodeEditorContent() {
-                if (this.node.body.hasOwnProperty('code_content')) return this.node.body.code_content;
-                return ''
+                return this.node.body.hasOwnProperty('code_content') ? this.node.body.code_content : '';
             }
         },
         methods: {
@@ -132,9 +132,15 @@
                 if (this.node.body.hasOwnProperty('language')) return this.node.body.language;
                 return 'text/javascript'
             },
-            onEditorChange(code) {
-                console.debug('editor change!', code);
-                this.editorContent = code;
+            onInput() {
+                if (this.editorContent !== this.nodeEditorContent) this.hasChanged  = true;
+                else this.hasChanged = false;
+            },
+            save() {
+                if (this.editorContent !== this.nodeEditorContent) {
+                    const data = { body: { code_content: this.editorContent } };
+                    this.$emit('change', data);
+                }
             }
         },
         watch: {
@@ -150,6 +156,8 @@
             ) {
                 await this.initCodeEditor();
             }
+        },
+        async mounted() {
             this.editorContent = this.nodeEditorContent;
         }
     }

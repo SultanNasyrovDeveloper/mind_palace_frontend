@@ -9,7 +9,7 @@
                                 class="ma-0 pa-0 text-caption"
                         >
                             <template v-slot:item="{ item }">
-                                <span class="text-caption text--grey text--lighten-1">{{ item.text }}</span>
+                                <router-link :to=""></router-link>
                             </template>
                         </v-breadcrumbs>
                     </v-col>
@@ -35,7 +35,7 @@
                 return this.node.ancestors.map(ancestor => {
                     return {
                         id: ancestor.id,
-                        text: ancestor.text
+                        text: ancestor.text,
                     }
                 })
             }

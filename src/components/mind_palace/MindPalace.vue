@@ -4,9 +4,11 @@
             <v-col cols="12" class="d-flex justify-end">
                 <v-btn
                         plain
-                        :disabled="!$store.getters.getMindPalaceRootParentId"
-                        :to="{name: 'mypalace', params: {rootId: $store.getters.getMindPalaceRootParentId}}">
-                    <v-icon x-large color="grey">mdi-arrow-up-box</v-icon>
+                        :to="{name: 'mypalace', params: {rootId: $store.getters.getMindPalaceRootParentId}}"
+                >
+                    <v-icon v-if="$store.getters.getMindPalaceRootParentId" x-large color="grey">
+                        mdi-arrow-up-box
+                    </v-icon>
                 </v-btn>
             </v-col>
         </v-row>

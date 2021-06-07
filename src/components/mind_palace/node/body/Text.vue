@@ -74,11 +74,7 @@
                 if (!this.hasChanged) return;
                 this.loading = true;
                 if (this.editorContent !== this.nodeEditorContent) {
-                    const data = {
-                        body: {
-                            text_content: this.editorContent
-                        }
-                    };
+                    const data = { body: { text_content: this.editorContent }};
                     this.$emit('change', data);
                 }
                 this.hasChanged = false;
