@@ -1,9 +1,9 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-import application from '@/store/modules/app'
-import user from '@/store/modules/user'
-import mind_palace from '@/store/modules/mind_palace'
+import application from '@/store/modules/app';
+import user from '@/store/modules/user';
+import mind_palace from '@/store/modules/mind_palace';
 
 
 Vue.use(Vuex);

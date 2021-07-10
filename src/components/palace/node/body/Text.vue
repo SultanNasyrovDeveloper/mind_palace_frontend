@@ -35,8 +35,8 @@
 <script>
     import { quillEditor } from 'vue-quill-editor'
 
-    import BaseNodeBody from '@/components/mind_palace/node/body/Base'
-    import NodeType from '@/components/mind_palace/node/shared/Type'
+    import BaseNodeBody from '@/components/palace/node/body/Base'
+    import NodeType from '@/components/palace/node/shared/Type'
 
     import 'quill/dist/quill.core.css'
     import 'quill/dist/quill.snow.css'

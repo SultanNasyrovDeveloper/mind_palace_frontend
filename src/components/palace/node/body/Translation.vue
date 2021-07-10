@@ -15,11 +15,11 @@
 </template>
 
 <script>
-    import BaseNodeBody from '@/components/mind_palace/node/body/Base'
-    import NodeType from '@/components/mind_palace/node/shared/Type'
+    import BaseNodeBody from '@/components/palace/node/body/Base'
+    import NodeType from '@/components/palace/node/shared/Type'
 
     export default {
-        name: "Chess",
+        name: "NodeTranslationBody",
         props: ['node'],
         components: { BaseNodeBody, NodeType }
     }

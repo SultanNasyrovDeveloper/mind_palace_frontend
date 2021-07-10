@@ -22,22 +22,43 @@
                 ></mind-palace-root-card>
             </v-col>
         </v-row>
-        <v-row no-gutters justify="center">
-            <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                    lg="2"
-                    v-for="node in palaceData.children"
-                    :key="node.id">
-                <mind-palace-node-card
-                        :node="node"
-                        @detailClick="(nodeId) => $emit('nodeDetailClick', nodeId)"
-                        @deleteClick="confirmNodeDelete"
-                        @createSubnode="openCreateSubnodeForm"
-                ></mind-palace-node-card>
-            </v-col>
-        </v-row>
+        <draggable v-model="palaceData.children" draggable=".item">
+            <v-row no-gutters justify="center">
+                <v-col
+                        cols="12"
+                        sm="6"
+                        md="4"
+                        lg="2"
+                        v-for="node in palaceData.children"
+                        :key="node.id"
+                >
+                    <mind-palace-node-card
+                            :node="node"
+                            @detailClick="(nodeId) => $emit('nodeDetailClick', nodeId)"
+                            @deleteClick="confirmNodeDelete"
+                            @createSubnode="openCreateSubnodeForm"
+                            class="item"
+                    ></mind-palace-node-card>
+                </v-col>
+            </v-row>
+        </draggable>
+
+        <!--<v-row no-gutters justify="center">-->
+            <!--<v-col-->
+                    <!--cols="12"-->
+                    <!--sm="6"-->
+                    <!--md="4"-->
+                    <!--lg="2"-->
+                    <!--v-for="node in palaceData.children"-->
+                    <!--:key="node.id">-->
+                <!--<mind-palace-node-card-->
+                        <!--:node="node"-->
+                        <!--@detailClick="(nodeId) => $emit('nodeDetailClick', nodeId)"-->
+                        <!--@deleteClick="confirmNodeDelete"-->
+                        <!--@createSubnode="openCreateSubnodeForm"-->
+                <!--&gt;</mind-palace-node-card>-->
+            <!--</v-col>-->
+        <!--</v-row>-->
         <!-- Node delete confirmation modal -->
         <v-dialog
             v-model="nodeDeleteConfirmationModal"
@@ -65,16 +86,19 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex'
+    import { mapActions } from 'vuex';
 
-    import MindPalaceRootCard from '@/components/mind_palace/MindPalaceRootCard'
-    import MindPalaceNodeCard from '@/components/mind_palace/MindPalaceNodeCard'
-    import NodeCreateSimpleForm from '@/components/mind_palace/NodeCreateSimpleForm'
-    import NodeDeleteConfirmationCard from '@/components/mind_palace/NodeDeleteConfirmationCard'
+    import draggable from 'vuedraggable';
+
+    import MindPalaceRootCard from '@/components/palace/MindPalaceRootCard';
+    import MindPalaceNodeCard from '@/components/palace/MindPalaceNodeCard';
+    import NodeCreateSimpleForm from '@/components/palace/NodeCreateSimpleForm';
+    import NodeDeleteConfirmationCard from '@/components/palace/NodeDeleteConfirmationCard';
 
     export default {
         name: "MindPalace",
         components: {
+            draggable,
             MindPalaceRootCard, MindPalaceNodeCard, NodeCreateSimpleForm, NodeDeleteConfirmationCard
         },
         props: ['palaceData'],

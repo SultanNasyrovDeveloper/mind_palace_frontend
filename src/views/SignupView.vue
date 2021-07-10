@@ -1,7 +1,7 @@
 <template>
-    <v-contanier class="d-flex justify-center">
+    <v-container class="d-flex justify-center">
         <signup-form></signup-form>
-    </v-contanier>
+    </v-container>
 </template>
 
 <script>

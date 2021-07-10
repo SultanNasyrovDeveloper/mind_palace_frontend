@@ -43,8 +43,8 @@
     import _ from 'lodash'
     import { codemirror } from 'vue-codemirror'
 
-    import BaseNodeBody from '@/components/mind_palace/node/body/Base'
-    import NodeType from '@/components/mind_palace/node/shared/Type'
+    import BaseNodeBody from '@/components/palace/node/body/Base'
+    import NodeType from '@/components/palace/node/shared/Type'
 
     // import style
     import 'codemirror/lib/codemirror.css'

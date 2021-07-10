@@ -17,7 +17,7 @@
         <template v-slot:general>
             <v-card>
                 <v-card-title>
-                    <node-name :value="node.name"></node-name>
+                    <node-name :value="node.name" @change="updateData => $emit('change', updateData)"></node-name>
                 </v-card-title>
                 <v-card-text>
                     <v-container fluid class="mx-0 px-0 pt-0 mt-0">
@@ -59,12 +59,12 @@
 </template>
 
 <script>
-    import BaseNodeDetail from '@/components/mind_palace/node/BaseNodeDetail'
-    import NodeBodyFactory from '@/components/mind_palace/node/BodyFactory'
-    import NodeDescription from '@/components/mind_palace/node/shared/Description'
-    import NodeHeader from '@/components/mind_palace/node/shared/Header'
-    import NodeName from '@/components/mind_palace/node/shared/Name'
-    import NodeTags from '@/components/mind_palace/node/shared/Tags'
+    import BaseNodeDetail from '@/components/palace/node/BaseNodeDetail'
+    import NodeBodyFactory from '@/components/palace/node/BodyFactory'
+    import NodeDescription from '@/components/palace/node/shared/Description'
+    import NodeHeader from '@/components/palace/node/shared/Header'
+    import NodeName from '@/components/palace/node/shared/Name'
+    import NodeTags from '@/components/palace/node/shared/Tags'
 
     export default {
         name: "NodeDetail",

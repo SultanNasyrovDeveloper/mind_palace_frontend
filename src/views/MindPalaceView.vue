@@ -22,8 +22,8 @@
     import { mapGetters } from 'vuex'
     import isString from 'lodash/isString'
 
-    import MindPalace from '@/components/mind_palace/MindPalace'
-    import NodeDetail from '@/components/mind_palace/node/NodeDetail'
+    import MindPalace from '@/components/palace/MindPalace'
+    import NodeDetail from '@/components/palace/node/NodeDetail'
 
 
     export default {

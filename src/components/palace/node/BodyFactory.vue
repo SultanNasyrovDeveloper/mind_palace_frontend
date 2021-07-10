@@ -28,10 +28,10 @@
 </template>
 
 <script>
-    import NodeChessBody from '@/components/mind_palace/node/body/Chess'
-    import NodeTextBody from '@/components/mind_palace/node/body/Text'
-    import NodeCodeBody from '@/components/mind_palace/node/body/Code'
-    import NodeTranslationBody from '@/components/mind_palace/node/body/Translation'
+    import NodeChessBody from '@/components/palace/node/body/Chess'
+    import NodeTextBody from '@/components/palace/node/body/Text'
+    import NodeCodeBody from '@/components/palace/node/body/Code'
+    import NodeTranslationBody from '@/components/palace/node/body/Translation'
 
     export default {
         name: "BaseBody",

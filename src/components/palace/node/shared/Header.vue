@@ -9,7 +9,7 @@
                                 class="ma-0 pa-0 text-caption"
                         >
                             <template v-slot:item="{ item }">
-                                <router-link :to=""></router-link>
+                                <span class="text-caption text--grey text--lighten-1">{{ item.text }}</span>
                             </template>
                         </v-breadcrumbs>
                     </v-col>
@@ -20,7 +20,6 @@
                         </v-btn>
                     </v-col>
                 </v-row>
-
             </v-container>
         </v-card-title>
     </v-card>

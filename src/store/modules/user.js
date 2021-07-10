@@ -33,8 +33,12 @@ const actions = {
                 console.log(error);
             })
     },
-    signup({ commit }, userData) {
-
+    signup({ commit }, signupCredentials) {
+        return client.post('/account/signup/', signupCredentials)
+            .then(response => response)
+            .catch(error => {
+                console.log(error);
+            })
     },
     async login({ commit, dispatch }, credentials) {
         return client.post('/auth/token/', credentials)
