@@ -3,13 +3,13 @@ import client from '@/services/api'
 
 const state = {
     root: {},
-    currentNode: {},
+    node: {},
 };
 
 const getters = {
     getMindPalace: state => state.root,
-    getCurrentNode: state => state.currentNode,
-    getCurrentNodeId: state => state.currentNode.id || null,
+    getCurrentNode: state => state.node,
+    getCurrentNodeId: state => state.node.id || null,
     getMindPalaceRootId: state => state.root.id || null,
     getMindPalaceRootParentId: state => state.root.parent || null,
     getMindPalaceRootChildren: state => state.root.children || [],
@@ -64,7 +64,7 @@ const mutations = {
 const actions = {
     async fetchMindPalace({ getters, commit }, rootId) {
         if (getters.getMindPalaceRootId === rootId) return;
-        return client.get(`/neuron/neurons/${rootId}/subtree`)
+        return client.get(`/palace/palaces/tree/?root=${rootId}&depth=3`)
             .then(response => {
                 const mindPalaceRoot = response.data;
                 commit('setMindPalace', mindPalaceRoot);
@@ -74,7 +74,7 @@ const actions = {
             })
     },
     async createNode({ commit }, nodeData) {
-        return client.post('/neuron/neurons/', nodeData)
+        return client.post('/palace/nodes/', nodeData)
             .then(response => {
                 commit('addMindPalaceNode', response.data);
             })
@@ -84,7 +84,7 @@ const actions = {
     },
     async fetchMindPalaceNode({ getters, commit }, nodeId) {
         if (getters.getCurrentNodeId === nodeId) return;
-        return client.get(`neuron/neurons/${nodeId}`)
+        return client.get(`/palace/nodes/${nodeId}`)
             .then(response => {
                 const nodeDetail = response.data;
                 commit('setCurrentNode', nodeDetail);
@@ -94,7 +94,7 @@ const actions = {
             })
     },
     async updateNode({ commit }, [nodeId, updateData]) {
-        return client.patch(`/neuron/neurons/${nodeId}/`, updateData)
+        return client.patch(`/palace/nodes/${nodeId}/`, updateData)
             .then(response => {
                 commit('setCurrentNode', response.data);
                 commit('setSnackbarText', 'Successfully update node.');
@@ -106,7 +106,7 @@ const actions = {
             })
     },
     async deleteNode({ commit }, nodeId) {
-        return client.delete(`neuron/neurons/${nodeId}`)
+        return client.delete(`/palace/nodes/${nodeId}`)
             .then(response => {
                 commit('removePalaceNode', nodeId);
             })

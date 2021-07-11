@@ -39,13 +39,15 @@
 
 
 <script>
-    import UserNavbarMenu from '@/components/user/UserNavbarMenu'
+    import UserNavbarMenu from '@/components/account/UserNavbarMenu'
 
     export default {
         name: "BaseView",
         components: { UserNavbarMenu },
         data() {
             return {}
+        },
+        async mounted() {
         }
     }
 </script>

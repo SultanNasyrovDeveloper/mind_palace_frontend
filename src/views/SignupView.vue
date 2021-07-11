@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import SignupForm from '@/components/user/SignupForm'
+    import SignupForm from '@/components/account/SignupForm'
 
     export default {
         name: "SignupView",

@@ -9,7 +9,8 @@
             </v-form>
         </v-card-text>
         <v-card-actions class="d-flex justify-center py-5">
-            <v-btn x-large :enable="formIsValid" class="success" @click="login">Send</v-btn>
+            <v-btn @click="$router.push({name: 'index'})">Cancel</v-btn>
+            <v-btn :enable="formIsValid" class="success" @click="login">Send</v-btn>
         </v-card-actions>
     </v-card>
 </template>

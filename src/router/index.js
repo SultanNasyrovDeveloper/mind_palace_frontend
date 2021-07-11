@@ -9,32 +9,34 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: '/',
-        component: () => import('@/views/BaseView'),
-        children: [
-            {
-                path: '/',
-                redirect: toUrl => {
-                    if (store.getters.getUserIsLoggedIn) {
-                        return {name: 'dashboard'}
-                    }
-                    return {name: 'index'}
+        redirect: toUrl => {
+            if (store.getters.getUserIsLoggedIn) {
+                return {name: 'dashboard'}
                 }
-            },
-            {
-                path: '/',
-                component: () => import('@/views/IndexView'),
-                name: 'index'
-            },
-            {
-                path: '/login',
-                component: () => import('@/views/LoginView'),
-                name: 'login'
-            },
-            {
-                path: '/signup',
-                component: () => import('@/views/SignupView'),
-                name: 'signup'
-            },
+                return {name: 'index'}
+        }
+    },
+    {
+        path: '/',
+        component: () => import('@/views/IndexView'),
+        name: 'index'
+    },
+    {
+        path: '/login',
+        component: () => import('@/views/LoginView'),
+        name: 'login'
+    },
+    {
+        path: '/signup',
+        component: () => import('@/views/SignupView'),
+        name: 'signup'
+    },
+    {
+        path: '/',
+        component: () => import('@/views/BaseApplicationView'),
+        children: [
+
+
             {
                 path: '/dashboard',
                 component: () => import('@/views/DashboardView'),

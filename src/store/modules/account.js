@@ -24,7 +24,7 @@ const mutations = {
 
 const actions = {
     async fetchCurrentUser({ commit }) {
-        return client.get('/auth/user/me')
+        return client.get('/account/me/')
             .then(response => {
                 const user = response.data;
                 commit('setCurrentUser', user);

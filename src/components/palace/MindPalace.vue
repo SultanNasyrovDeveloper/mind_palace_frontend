@@ -70,18 +70,6 @@
                 @delete="handleNodeDeletion"
             ></node-delete-confirmation-card>
         </v-dialog>
-
-        <!-- Node create modal -->
-        <v-dialog
-                v-model="nodeCreateModal"
-                max-width="600"
-        >
-            <node-create-simple-form
-                    :parentId="nodeToCreateParentId"
-                    @close="nodeCreateModal = false; newNodeParentId = null"
-                    @save="handleNodeCreation"
-            ></node-create-simple-form>
-        </v-dialog>
     </v-container>
 </template>
 
