@@ -43,7 +43,7 @@ const mutations = {
             }
         }
     },
-    setCurrentNode: (state, newNode) => state.currentNode = newNode,
+    setCurrentNode: (state, newNode) => state.node = newNode,
     removePalaceNode(state, nodeId) {
         if (nodeId === state.root.id) { state.root = {}; return; }
         for (const child of state.root.children) {
@@ -84,7 +84,7 @@ const actions = {
     },
     async fetchMindPalaceNode({ getters, commit }, nodeId) {
         if (getters.getCurrentNodeId === nodeId) return;
-        return client.get(`/palace/nodes/${nodeId}`)
+        return client.get(`/palace/nodes/${nodeId}/`)
             .then(response => {
                 const nodeDetail = response.data;
                 commit('setCurrentNode', nodeDetail);
@@ -106,7 +106,7 @@ const actions = {
             })
     },
     async deleteNode({ commit }, nodeId) {
-        return client.delete(`/palace/nodes/${nodeId}`)
+        return client.delete(`/palace/nodes/${nodeId}/`)
             .then(response => {
                 commit('removePalaceNode', nodeId);
             })

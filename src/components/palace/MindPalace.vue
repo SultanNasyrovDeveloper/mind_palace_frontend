@@ -42,33 +42,26 @@
                 </v-col>
             </v-row>
         </draggable>
-
-        <!--<v-row no-gutters justify="center">-->
-            <!--<v-col-->
-                    <!--cols="12"-->
-                    <!--sm="6"-->
-                    <!--md="4"-->
-                    <!--lg="2"-->
-                    <!--v-for="node in palaceData.children"-->
-                    <!--:key="node.id">-->
-                <!--<mind-palace-node-card-->
-                        <!--:node="node"-->
-                        <!--@detailClick="(nodeId) => $emit('nodeDetailClick', nodeId)"-->
-                        <!--@deleteClick="confirmNodeDelete"-->
-                        <!--@createSubnode="openCreateSubnodeForm"-->
-                <!--&gt;</mind-palace-node-card>-->
-            <!--</v-col>-->
-        <!--</v-row>-->
-        <!-- Node delete confirmation modal -->
         <v-dialog
-            v-model="nodeDeleteConfirmationModal"
-            max-width="600"
+                v-model="nodeDeleteConfirmationModal"
+                max-width="600"
         >
             <node-delete-confirmation-card
-                :node="nodeToDelete"
-                @close="nodeDeleteConfirmationModal = false"
-                @delete="handleNodeDeletion"
+                    :node="nodeToDelete"
+                    @close="nodeDeleteConfirmationModal = false"
+                    @delete="handleNodeDeletion"
             ></node-delete-confirmation-card>
+        </v-dialog>
+        <!-- Node create modal -->
+        <v-dialog
+                v-model="nodeCreateModal"
+                max-width="600"
+        >
+            <node-create-simple-form
+                    :parentId="nodeToCreateParentId"
+                    @close="nodeCreateModal = false; newNodeParentId = null"
+                    @save="handleNodeCreation"
+            ></node-create-simple-form>
         </v-dialog>
     </v-container>
 </template>

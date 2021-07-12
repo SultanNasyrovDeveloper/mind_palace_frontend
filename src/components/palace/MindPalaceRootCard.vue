@@ -3,7 +3,7 @@
         <v-card-title>
             <span
                     style="cursor: pointer !important;"
-                    @click="node.parent ? $emit('detailClick', node.id) : null">
+                    @click="$emit('detailClick', node.id)">
                 {{ node.name }}
             </span>
         </v-card-title>

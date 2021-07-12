@@ -1,10 +1,5 @@
 <template>
     <base-node-detail>
-        <!--NODE HEADER-->
-        <template v-slot:header>
-            <node-header :node="node" @close="$emit('close')"></node-header>
-        </template><!--/NODE HEADER-->
-
         <!--NODE BODY-->
         <template v-slot:body>
             <node-body-factory
@@ -61,10 +56,10 @@
 <script>
     import BaseNodeDetail from '@/components/palace/node/BaseNodeDetail'
     import NodeBodyFactory from '@/components/palace/node/BodyFactory'
-    import NodeDescription from '@/components/palace/node/shared/Description'
-    import NodeHeader from '@/components/palace/node/shared/Header'
-    import NodeName from '@/components/palace/node/shared/Name'
-    import NodeTags from '@/components/palace/node/shared/Tags'
+    import NodeDescription from '@/components/palace/node/fields/Description'
+    import NodeHeader from '@/components/palace/node/fields/Header'
+    import NodeName from '@/components/palace/node/fields/Name'
+    import NodeTags from '@/components/palace/node/fields/Tags'
 
     export default {
         name: "NodeDetail",

@@ -16,7 +16,7 @@
 
 <script>
     import BaseNodeBody from '@/components/palace/node/body/Base'
-    import NodeType from '@/components/palace/node/shared/Type'
+    import NodeType from '@/components/palace/node/fields/Type'
 
     export default {
         name: "Chess",

@@ -3,22 +3,22 @@
         <v-row class="fill-height">
             <v-col cols="12" class="fill-height pa-0">
                 <node-code-body
-                        v-if="node.type === 'code'"
+                        v-if="node.body_type === 'code'"
                         :node="node"
                         @change="newData => $emit('change', newData)"
                 ></node-code-body>
                 <node-chess-body
-                        v-else-if="node.type === 'chess'"
+                        v-else-if="node.body_type === 'chess'"
                         :node="node"
                         @change="newData => $emit('change', newData)"
                 ></node-chess-body>
                 <node-text-body
-                        v-else-if="node.type === 'text'"
+                        v-else-if="node.body_type === 'text'"
                         :node="node"
                         @change="newData => $emit('change', newData)"
                 ></node-text-body>
                 <node-translation-body
-                        v-else-if="node.type === 'translation'"
+                        v-else-if="node.body_type === 'translation'"
                         :node="node"
                         @change="newData => $emit('change', newData)"
                 ></node-translation-body>

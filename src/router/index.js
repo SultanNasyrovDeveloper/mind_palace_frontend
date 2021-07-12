@@ -35,8 +35,6 @@ const routes = [
         path: '/',
         component: () => import('@/views/BaseApplicationView'),
         children: [
-
-
             {
                 path: '/dashboard',
                 component: () => import('@/views/DashboardView'),
@@ -44,17 +42,17 @@ const routes = [
                 meta: { requiresAuth: true },
             },
             {
-                path: '/mypalace/:rootId/node/:nodeId',
-                component: () => import('@/views/MindPalaceView'),
-                name: 'mypalace.node',
-                props: true,
-                meta: { requiresAuth: true }
-            },
-            {
                 path: '/mypalace/:rootId',
                 component: () => import('@/views/MindPalaceView'),
                 props: true,
                 name: 'mypalace',
+                meta: { requiresAuth: true }
+            },
+            {
+                path: 'mypalace/node/:nodeId',
+                component: () => import('@/views/NodeDetailView'),
+                props: true,
+                name: 'node.detail',
                 meta: { requiresAuth: true }
             },
             {

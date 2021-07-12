@@ -6,21 +6,13 @@
     >
         <mind-palace
                 :palaceData="$store.getters.getMindPalace"
-                @nodeDetailClick="showNodeDetail"
+                @nodeDetailClick="goToNodeDetail"
         ></mind-palace>
-        <v-dialog fullscreen v-model="showNodeDetailModal">
-            <node-detail
-                    :node="$store.getters.getCurrentNode"
-                    @close="showNodeDetailModal = false"
-                    @change="handleCurrentNodeChange"
-            ></node-detail>
-        </v-dialog>
     </v-container>
 </template>
 
 <script>
     import { mapGetters } from 'vuex'
-    import isString from 'lodash/isString'
 
     import MindPalace from '@/components/palace/MindPalace'
     import NodeDetail from '@/components/palace/node/NodeDetail'
@@ -30,7 +22,6 @@
         name: "MindPalaceView",
         props: {
             rootId: { default: null },
-            nodeId: { default: null }
         },
         components: { MindPalace, NodeDetail },
         data() {
@@ -38,51 +29,21 @@
                 showNodeDetailModal: false
             }
         },
-        computed: {
-            ...mapGetters({'mindPalaceRootId': 'getMindPalaceRootId'}),
-            cleanNodeId() {
-                if (isString(this.nodeId)) return parseInt(this.nodeId);
-                return this.nodeId
+        methods: {
+            goToNodeDetail(nodeId) {
+                this.$router.push({name: 'node.detail', params: {'nodeId': nodeId}})
             }
         },
-        methods: {
-            async showNodeDetail(nodeId) {
-                if (nodeId !== this.cleanNodeId) {
-                    await this.$router.push({
-                        name: 'mypalace.node', params: { rootId: this.rootId, nodeId: nodeId }
-                    });
-                } else {
-                    this.showNodeDetailModal = true;
-                }
-            },
-            async handleCurrentNodeChange(updateData) {
-                await this.$store.dispatch(
-                    'updateNode',
-                    [this.$store.getters.getCurrentNodeId, updateData]
-                );
-            }
+        computed: {
+            ...mapGetters({'mindPalaceRootId': 'getMindPalaceRootId'}),
         },
         watch: {
             async rootId() {
                 await this.$store.dispatch('fetchMindPalace', this.rootId);
-            },
-            async nodeId(newNodeId) {
-                if (newNodeId) {
-                    if (this.cleanNodeId !== this.$store.getters.getCurrentNodeId) {
-                        await this.$store.dispatch('fetchMindPalaceNode', this.cleanNodeId);
-                    }
-                    await this.showNodeDetail(this.cleanNodeId);
-                }
             }
         },
         async mounted() {
             if (this.rootId) await this.$store.dispatch('fetchMindPalace', this.rootId);
-            if (this.cleanNodeId) {
-                if (this.cleanNodeId !== this.$store.getters.getCurrentNodeId) {
-                    await this.$store.dispatch('fetchMindPalaceNode', this.cleanNodeId);
-                }
-                await this.showNodeDetail(this.cleanNodeId);
-            }
         }
     }
 </script>
