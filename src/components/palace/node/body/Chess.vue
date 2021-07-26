@@ -5,7 +5,7 @@
             <div>
                 <node-type
                     :value="node.type"
-                    :types="$store.getters.getEnums.neuron_types"
+                    :types="$store.getters.getEnums.node_body_types"
                     @change="updateData => $emit('change', updateData)"
                 ></node-type>
                 <v-btn dark color="green darken-2" class="ml-2" elevation="0">Save</v-btn>

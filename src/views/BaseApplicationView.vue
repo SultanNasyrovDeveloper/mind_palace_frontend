@@ -48,6 +48,8 @@
             return {}
         },
         async mounted() {
+            await this.$store.dispatch('fetchEnums');
+            await this.$store.dispatch('fetchMyActiveSession');
         }
     }
 </script>

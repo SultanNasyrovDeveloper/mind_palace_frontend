@@ -2,16 +2,16 @@ import client from '@/services/api'
 
 const state = {
     sidebar: false,
+    enums: {},
     showSnackbar: false,
-    snackbarText: '',
-    enums: {}
+    snackbarText: ''
 };
 
 const getters = {
+    getEnums: state => state.enums,
+    getEnumsByName: (state, enumName) => state.enums[enumName],
     getShowSnackbar: state => state.showSnackbar,
     getSnackbarText: state => state.snackbarText,
-    getEnums: state => state.enums,
-    getEnumsByName: (state, enumName) => state.enums[enumName]
 };
 
 const mutations = {
@@ -22,11 +22,9 @@ const mutations = {
 
 const actions = {
     fetchEnums({ commit }) {
-        return client.get('/enums')
+        return client.get('application/enums')
             .then(response => {
                 commit('setEnums', response.data);
-                commit('setSnackbarText', 'Successfully retrieved enums from server.');
-                commit('setShowSnackbar', true);
             })
             .catch(error => {
                 commit(

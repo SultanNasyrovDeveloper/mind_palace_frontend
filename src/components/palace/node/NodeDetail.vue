@@ -14,6 +14,9 @@
                 <v-card-title>
                     <node-name :value="node.name" @change="updateData => $emit('change', updateData)"></node-name>
                 </v-card-title>
+                <v-card-subtitle>
+                    Node learning statistics
+                </v-card-subtitle>
                 <v-card-text>
                     <v-container fluid class="mx-0 px-0 pt-0 mt-0">
                         <node-tags
@@ -32,9 +35,7 @@
 
         <!--NODE LEARNING WIDGET-->
         <template v-slot:learning>
-            <v-card>
-                <v-card-title>Node learning widget</v-card-title>
-            </v-card>
+            <node-detail-learning></node-detail-learning>
         </template><!--/NODE LEARNING WIDGET-->
 
         <!--NODE MEDIA-->
@@ -61,11 +62,14 @@
     import NodeName from '@/components/palace/node/fields/Name'
     import NodeTags from '@/components/palace/node/fields/Tags'
 
+    import NodeDetailLearning from '@/components/learning/NodeDetailLearning'
+
     export default {
         name: "NodeDetail",
         props: ['node'],
         components: {
-            BaseNodeDetail, NodeHeader, NodeBodyFactory, NodeName, NodeDescription, NodeTags
+            BaseNodeDetail, NodeHeader, NodeBodyFactory, NodeName, NodeDescription, NodeTags,
+            NodeDetailLearning
         }
     }
 </script>

@@ -10,7 +10,7 @@
             <v-list-item
                     v-for="(type, index) in types"
                     :key="index"
-                    @click="type[0] !== value ? $emit('change', { type: type[0] }) : null"
+                    @click="type[0] !== value ? $emit('change', { body_type: type[0] }) : null"
             >
                 <v-list-item-avatar>
                     <v-icon small>mdi-{{ getTypeIcon(type[0]) }}</v-icon>

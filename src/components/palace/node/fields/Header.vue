@@ -4,14 +4,7 @@
             <v-container fluid class="ma-0 pa-0">
                 <v-row>
                     <v-col cols="8" class="d-flex align-center">
-                        <v-breadcrumbs
-                                :items="breadcrumbsItems"
-                                class="ma-0 pa-0 text-caption"
-                        >
-                            <template v-slot:item="{ item }">
-                                <span class="text-caption text--grey text--lighten-1">{{ item.text }}</span>
-                            </template>
-                        </v-breadcrumbs>
+                        <node-breadcrumbs :items="node.ancestors"></node-breadcrumbs>
                     </v-col>
                     <v-col cols="4" class="d-flex justify-end align-center">
                         <v-btn plain>Configure</v-btn>
@@ -25,19 +18,17 @@
     </v-card>
 </template>
 
+
 <script>
+    import NodeBreadcrumbs from '@/components/palace/node/fields/Breadcrumbs';
+
+
     export default {
         name: "Header",
         props: ['node'],
+        components: { NodeBreadcrumbs, },
         computed: {
-            breadcrumbsItems() {
-                return this.node.ancestors.map(ancestor => {
-                    return {
-                        id: ancestor.id,
-                        text: ancestor.text,
-                    }
-                })
-            }
+
         }
     }
 </script>

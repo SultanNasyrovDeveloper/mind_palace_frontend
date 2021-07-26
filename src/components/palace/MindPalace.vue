@@ -23,7 +23,7 @@
             </v-col>
         </v-row>
         <draggable v-model="palaceData.children" draggable=".item">
-            <v-row no-gutters justify="center">
+            <v-row no-gutters>
                 <v-col
                         cols="12"
                         sm="6"

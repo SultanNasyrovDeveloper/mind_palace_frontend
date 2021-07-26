@@ -39,6 +39,7 @@
         },
         watch: {
             async rootId() {
+                console.log('Test');
                 await this.$store.dispatch('fetchMindPalace', this.rootId);
             }
         },

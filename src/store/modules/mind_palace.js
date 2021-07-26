@@ -10,6 +10,7 @@ const getters = {
     getMindPalace: state => state.root,
     getCurrentNode: state => state.node,
     getCurrentNodeId: state => state.node.id || null,
+    getCurrentNodeBody: state => state.node.body || null,
     getMindPalaceRootId: state => state.root.id || null,
     getMindPalaceRootParentId: state => state.root.parent || null,
     getMindPalaceRootChildren: state => state.root.children || [],
@@ -93,16 +94,13 @@ const actions = {
                 console.log(error);
             })
     },
-    async updateNode({ commit }, [nodeId, updateData]) {
+    async updateNode({ commit, getters }, [nodeId, updateData]) {
         return client.patch(`/palace/nodes/${nodeId}/`, updateData)
             .then(response => {
                 commit('setCurrentNode', response.data);
-                commit('setSnackbarText', 'Successfully update node.');
-                commit('setShowSnackbar', true);
             })
             .catch(error => {
-                commit('setSnackbarText', 'Error occured while updating node: ' + error);
-                commit('setShowSnackbar', true);
+                console.log(error);
             })
     },
     async deleteNode({ commit }, nodeId) {

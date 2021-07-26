@@ -5,8 +5,8 @@
         <template v-slot:options>
             <div>
                 <node-type
-                    :value="node.type"
-                    :types="$store.getters.getEnums.neuron_types"
+                    :value="node.body_type"
+                    :types="$store.getters.getEnums.node_body_types"
                     @change="updateData => $emit('change', updateData)"
                 ></node-type>
                 <v-btn
