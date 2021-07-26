@@ -1,7 +1,7 @@
 import client from '@/services/api'
 
 const state = {
-    sidebar: false,
+    sidebar: true,
     enums: {},
     showSnackbar: false,
     snackbarText: ''
@@ -9,6 +9,7 @@ const state = {
 
 const getters = {
     getEnums: state => state.enums,
+    getSidebar: state => state.sidebar,
     getEnumsByName: (state, enumName) => state.enums[enumName],
     getShowSnackbar: state => state.showSnackbar,
     getSnackbarText: state => state.snackbarText,
@@ -18,6 +19,13 @@ const mutations = {
     setShowSnackbar: (state, newShowSnackbarValue) => state.showSnackbar = newShowSnackbarValue,
     setSnackbarText: (state, newSnackbarText) => state.snackbarText = newSnackbarText,
     setEnums: (state, newEnums) => state.enums = newEnums,
+    toggleSidebar(state) {
+        if (state.sidebar) {
+            state.sidebar = false;
+            return;
+        }
+        state.sidebar = true;
+    }
 };
 
 const actions = {

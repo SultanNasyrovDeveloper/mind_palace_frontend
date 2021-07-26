@@ -1,13 +1,15 @@
 <template>
     <v-container fluid class="ma-0 pa-0 fill-height">
-        <v-app-bar app clipped-left>
+        <v-app-bar app clipped-left dense>
+            <v-app-bar-nav-icon @click="$store.commit('toggleSidebar')"></v-app-bar-nav-icon>
             <v-toolbar-title>
-                <router-link to="/">PALACES OF MIND</router-link>
+                <router-link to="/">Palaces of Mind</router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <user-navbar-menu></user-navbar-menu>
         </v-app-bar>
-        <v-navigation-drawer app clipped v-if="$store.getters.getUserIsLoggedIn">
+
+        <v-navigation-drawer app clipped v-if="$store.getters.getSidebar">
             <v-list>
                 <v-list-item :to="{name: 'dashboard'}">
                     <v-list-item-title>Dashboard</v-list-item-title>
@@ -29,6 +31,7 @@
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
+
         <v-container fluid class="fill-height">
             <v-main class="fill-height">
                 <router-view></router-view>
