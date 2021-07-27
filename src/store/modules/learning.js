@@ -8,6 +8,12 @@ const state = {
 
 const getters = {
     getCurrentNodeStatistics: state => state.currentNodeStatistics,
+    getCurrentNodeStatisticsId: state => state.currentNodeStatistics.id || null,
+    getCurrentNodeStatisticsNodeId: state => {
+        if (state.currentNodeStatistics && state.currentNodeStatistics.hasOwnProperty('node')) {
+            return state.currentNodeStatistics.node
+        }
+    },
     getCurrentLearningSession: state => state.currentLearningSession,
     getCurrentLearningSessionId: state => state.currentLearningSession.id || null,
     getCurrentLearningNodeId: state => state.currentLearningNodeId,
@@ -20,7 +26,17 @@ const mutations = {
 };
 
 const actions = {
-    async fetchNodeLearningStatistics({ commit }, nodeId) {},
+    async fetchNodeLearningStatistics({ commit, getters }, nodeId) {
+        if (nodeId === getters.getCurrentNodeStatisticsNodeId) return;
+        return apiClient.get(`/learning/statistics/node_statistics/?node_id=${nodeId}`)
+            .then(response => {
+                commit('setCurrentNodeStatistics', response.data)
+            })
+            .catch(error => {
+                commit('setSnackbarText', error.toString());
+                commit('setShowSnackbar', true);
+            })
+    },
     async fetchMyActiveSession({ commit }) {
         return apiClient.get('learning/sessions/my_active_session/')
             .then(response => {

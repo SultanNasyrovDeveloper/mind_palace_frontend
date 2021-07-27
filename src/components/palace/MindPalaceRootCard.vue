@@ -7,12 +7,6 @@
                 {{ node.name }}
             </span>
         </v-card-title>
-        <v-card-subtitle>
-            <span class="mr-3">Stat: 86</span>
-            <span class="mr-3">Stat: 86</span>
-            <span class="mr-3">Stat: 86</span>
-            <span class="mr-3">Stat: 86</span>
-        </v-card-subtitle>
         <v-card-actions class="d-flex justify-space-between">
             <v-btn
                     plain
@@ -31,9 +25,12 @@
 </template>
 
 <script>
+    import NodeStatistics from '@/components/learning/NodeLearningStatistics';
+
     export default {
         name: "MindPalaceRootCard",
-        props: ['node']
+        props: ['node'],
+        components: { NodeStatistics }
     }
 </script>
 

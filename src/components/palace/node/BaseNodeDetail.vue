@@ -10,16 +10,16 @@
             <v-col cols="5">
                 <v-container fluid class="ma-0 pa-0">
                     <v-row>
-                        <v-col cols="12">
+                        <v-col cols="12" class="mb-1 pb-0">
                             <slot name="general"></slot>
                         </v-col>
-                        <v-col cols="12">
+                        <v-col cols="12" class="my-1 py-0">
                             <slot name="learning"></slot>
                         </v-col>
-                        <v-col cols="12">
+                        <v-col cols="12" class="my-1 py-0">
                             <slot name="media"></slot>
                         </v-col>
-                        <v-col cols="12">
+                        <v-col cols="12" class="my-1 py-0">
                             <slot name="connections"></slot>
                         </v-col>
                     </v-row>

@@ -1,5 +1,8 @@
 <template>
     <base-node-detail>
+        <template v-slot:header>
+            <node-header :node="node"></node-header>
+        </template>
         <!--NODE BODY-->
         <template v-slot:body>
             <node-body-factory
@@ -12,10 +15,21 @@
         <template v-slot:general>
             <v-card>
                 <v-card-title>
-                    <node-name :value="node.name" @change="updateData => $emit('change', updateData)"></node-name>
+                    <v-container fluid>
+                        <v-row>
+                            <v-col cols="8" class="mx-0 pa-0">
+                                <node-name :value="node.name" @change="updateData => $emit('change', updateData)"></node-name>
+                            </v-col>
+                            <v-col cols="4" class="d-flex justify-end mx-0 pa-0">
+                                <v-icon @click="$router.push({name: 'mypalace', params: {rootId: node.id}})">
+                                    mdi-family-tree</v-icon>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+
                 </v-card-title>
                 <v-card-subtitle>
-                    Node learning statistics
+                    <node-statistics :statisticsId="node.learning_statistics"></node-statistics>
                 </v-card-subtitle>
                 <v-card-text>
                     <v-container fluid class="mx-0 px-0 pt-0 mt-0">
@@ -61,6 +75,7 @@
     import NodeHeader from '@/components/palace/node/fields/Header'
     import NodeName from '@/components/palace/node/fields/Name'
     import NodeTags from '@/components/palace/node/fields/Tags'
+    import NodeStatistics from '@/components/learning/NodeLearningStatistics'
 
     import NodeDetailLearning from '@/components/learning/NodeDetailLearning'
 
@@ -69,7 +84,7 @@
         props: ['node'],
         components: {
             BaseNodeDetail, NodeHeader, NodeBodyFactory, NodeName, NodeDescription, NodeTags,
-            NodeDetailLearning
+            NodeDetailLearning, NodeStatistics
         }
     }
 </script>

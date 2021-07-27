@@ -11,6 +11,7 @@ const getters = {
     getCurrentNode: state => state.node,
     getCurrentNodeId: state => state.node.id || null,
     getCurrentNodeBody: state => state.node.body || null,
+    getCurrentNodeLearningStatisticsId: state => state.node.learning_statistics || null,
     getMindPalaceRootId: state => state.root.id || null,
     getMindPalaceRootParentId: state => state.root.parent || null,
     getMindPalaceRootChildren: state => state.root.children || [],

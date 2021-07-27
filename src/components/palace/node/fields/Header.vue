@@ -4,13 +4,18 @@
             <v-container fluid class="ma-0 pa-0">
                 <v-row>
                     <v-col cols="8" class="d-flex align-center">
+                        <v-btn
+                                plain
+                                icon
+                                v-if="$store.getters.getMindPalaceRootId"
+                                @click="goBackToMindPalace"
+                        >
+                            <v-icon>mdi-arrow-left</v-icon>
+                        </v-btn>
                         <node-breadcrumbs :items="node.ancestors"></node-breadcrumbs>
                     </v-col>
                     <v-col cols="4" class="d-flex justify-end align-center">
                         <v-btn plain>Configure</v-btn>
-                        <v-btn icon class="px-2 py-1" @click="$emit('close')">
-                            <v-icon>mdi-close</v-icon>
-                        </v-btn>
                     </v-col>
                 </v-row>
             </v-container>
@@ -27,8 +32,15 @@
         name: "Header",
         props: ['node'],
         components: { NodeBreadcrumbs, },
-        computed: {
+        methods: {
+            goBackToMindPalace() {
+                if (this.$store.getters.getMindPalaceRootId) {
+                    this.$router.push(
+                        {name: 'mypalace', params: {rootId: this.$store.getters.getMindPalaceRootId}}
+                    );
+                }
 
+            }
         }
     }
 </script>
