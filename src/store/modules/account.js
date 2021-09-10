@@ -11,6 +11,11 @@ const state = {
 
 const getters = {
     getUser: state => state.user,
+    getUserMindPalaceRootId: state => {
+        if (state.user && state.user.hasOwnProperty('mind_palace_root')) {
+            return state.user.mind_palace_root
+        }
+    },
     getUserId: state => state.user.hasOwnProperty('id') ? state.user.id : null,
     getUserIsLoggedIn: state => state.isLoggedIn,
 };
@@ -33,7 +38,7 @@ const actions = {
                 console.log(error);
             })
     },
-    signup({ commit }, signupCredentials) {
+    async signup({ commit }, signupCredentials) {
         return client.post('/account/signup/', signupCredentials)
             .then(response => response)
             .catch(error => {
@@ -59,7 +64,6 @@ const actions = {
             })
             .catch(error => {
                 console.log(error);
-                throw error
             })
     },
     async refreshToken({ commit }) {},

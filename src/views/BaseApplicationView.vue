@@ -14,13 +14,13 @@
                 <v-list-item :to="{name: 'dashboard'}">
                     <v-list-item-title>Dashboard</v-list-item-title>
                 </v-list-item>
-                <v-list-item :to="{ name: 'mypalace', params: { rootId: 1 }}">
+                <v-list-item :to="{ name: 'mypalace', params: { rootId: $store.getters.getUserMindPalaceRootId }}">
                     <v-list-item-title>My mind palace</v-list-item-title>
                 </v-list-item>
                 <v-list-item>
                     <v-list-item-title>Favorites</v-list-item-title>
                 </v-list-item>
-                <v-list-item>
+                <v-list-item :to="{name: 'learning'}">
                     <v-list-item-title>Learning</v-list-item-title>
                 </v-list-item>
                 <v-list-item>

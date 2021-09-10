@@ -1,9 +1,10 @@
 <template>
     <v-container fluid class="mx-0 px-0">
+        Views: {{ stats.views}}
         Repetitions: {{ stats.repetitions }}
         Easiness: {{ stats.easiness }}
         Average rate: {{ stats.average_rate }}
-        Next repetition: {{ stats.next_repetition }}
+        <p>Next repetition: {{ stats.next_repetition }}</p>
     </v-container>
 </template>
 

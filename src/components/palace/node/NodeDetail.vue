@@ -54,9 +54,7 @@
 
         <!--NODE MEDIA-->
         <template v-slot:media>
-            <v-card>
-                <v-card-title>Node media</v-card-title>
-            </v-card>
+            <node-media></node-media>
         </template><!--/NODE MEDIA-->
 
         <!--NODE CONNECTIONS TABLE-->
@@ -76,6 +74,7 @@
     import NodeName from '@/components/palace/node/fields/Name'
     import NodeTags from '@/components/palace/node/fields/Tags'
     import NodeStatistics from '@/components/learning/NodeLearningStatistics'
+    import NodeMedia from '@/components/palace/node/fields/Media'
 
     import NodeDetailLearning from '@/components/learning/NodeDetailLearning'
 
@@ -84,7 +83,7 @@
         props: ['node'],
         components: {
             BaseNodeDetail, NodeHeader, NodeBodyFactory, NodeName, NodeDescription, NodeTags,
-            NodeDetailLearning, NodeStatistics
+            NodeDetailLearning, NodeStatistics, NodeMedia
         }
     }
 </script>

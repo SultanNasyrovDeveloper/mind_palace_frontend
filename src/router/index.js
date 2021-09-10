@@ -56,6 +56,12 @@ const routes = [
                 meta: { requiresAuth: true }
             },
             {
+                path: 'learning',
+                component: () => import('@/views/UserLearningView'),
+                name: 'learning',
+                meta: {requiresAuth: true}
+            },
+            {
                 path: 'learning/node/:nodeId',
                 component: () => import('@/views/NodeLearningCardView'),
                 props: true,

@@ -5,7 +5,7 @@
                     class="body-2"
                     style="cursor: pointer"
                     @click="$emit('detailClick', node.id)"
-            >{{ node.name }}</span>
+            >{{ nameSized }}</span>
             <v-spacer></v-spacer>
             <v-btn icon :to="{name: 'mypalace', params: { rootId: node.id }}">
                 <v-icon small>mdi-arrow-right</v-icon>
@@ -20,7 +20,7 @@
             >Create subnode</v-btn>
             <v-btn x-small plain color="red lighten-1" @click="$emit('deleteClick', node)">Delete</v-btn>
         </v-card-subtitle>
-        <div style="overflow-y: scroll; max-height: 220px;" v-if="node.children.length > 0">
+        <div style="overflow-y: scroll; min-height: 220px; max-height: 220px">
             <v-list>
                 <v-list-item
                         dense
@@ -64,7 +64,16 @@
 <script>
     export default {
         name: "MindPalaceNodeCard",
-        props: ['node']
+        props: ['node'],
+        computed: {
+            nameSized() {
+                const length = 20;
+                if (this.node.name && this.node.name.length > length) {
+                    return this.node.name.slice(0, length) + '...'
+                }
+                return this.node.name
+            }
+        }
     }
 </script>
 

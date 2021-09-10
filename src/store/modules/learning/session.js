@@ -1,36 +1,28 @@
 import apiClient from '@/services/api';
 
 const state = {
-    currentLearningNodeId: null,
-    currentNodeStatistics: null,
-    currentLearningSession: null,
+    learningSession: null,
+    learningNodeId: null,
+
 };
 
 const getters = {
-    getCurrentNodeStatistics: state => state.currentNodeStatistics,
-    getCurrentNodeStatisticsId: state => state.currentNodeStatistics.id || null,
-    getCurrentNodeStatisticsNodeId: state => {
-        if (state.currentNodeStatistics && state.currentNodeStatistics.hasOwnProperty('node')) {
-            return state.currentNodeStatistics.node
-        }
-    },
-    getCurrentLearningSession: state => state.currentLearningSession,
-    getCurrentLearningSessionId: state => state.currentLearningSession.id || null,
-    getCurrentLearningNodeId: state => state.currentLearningNodeId,
+    getCurrentLearningSession: state => state.learningSession,
+    getCurrentLearningSessionId: state => state.learningSession.id || null,
+    getCurrentLearningNodeId: state => state.learningNodeId,
 };
 
 const mutations = {
-    setCurrentNodeStatistics: (state, newValue) => state.currentNodeStatistics = newValue,
-    setCurrentLearningSession: (state, newValue) => state.currentLearningSession = newValue,
-    setCurrentLearningNodeId: (state, newValue) => state.currentLearningNodeId = newValue,
+    setCurrentLearningSession: (state, newValue) => state.learningSession = newValue,
 };
 
 const actions = {
-    async fetchNodeLearningStatistics({ commit, getters }, nodeId) {
-        if (nodeId === getters.getCurrentNodeStatisticsNodeId) return;
-        return apiClient.get(`/learning/statistics/node_statistics/?node_id=${nodeId}`)
+    async fetchCurrentLearningNodeId({ commit, getters }) {
+        return apiClient.get(`learning/sessions/${getters.getCurrentLearningSessionId}/current/`)
             .then(response => {
-                commit('setCurrentNodeStatistics', response.data)
+                if (response.status === 200) {
+                    commit('setCurrentLearningNodeId', response.data);
+                }
             })
             .catch(error => {
                 commit('setSnackbarText', error.toString());
@@ -94,18 +86,6 @@ const actions = {
                 commit('setShowSnackbar', true);
             })
     },
-    async fetchCurrentLearningNodeId({ commit, getters }) {
-        return apiClient.get(`learning/sessions/${getters.getCurrentLearningSessionId}/current/`)
-            .then(response => {
-                if (response.status === 200) {
-                    commit('setCurrentLearningNodeId', response.data);
-                }
-            })
-            .catch(error => {
-                commit('setSnackbarText', error.toString());
-                commit('setShowSnackbar', true);
-            })
-    },
 };
 
-export default { state, getters, actions, mutations };
+export default { state, getters, mutations, actions };

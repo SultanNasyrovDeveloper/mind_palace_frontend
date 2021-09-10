@@ -1,6 +1,5 @@
 import client from '@/services/api'
 
-
 const state = {
     root: {},
     node: {},
@@ -11,12 +10,12 @@ const getters = {
     getCurrentNode: state => state.node,
     getCurrentNodeId: state => state.node.id || null,
     getCurrentNodeBody: state => state.node.body || null,
+    getCurrentNodeMedia: state => state.node.media || null,
     getCurrentNodeLearningStatisticsId: state => state.node.learning_statistics || null,
     getMindPalaceRootId: state => state.root.id || null,
     getMindPalaceRootParentId: state => state.root.parent || null,
     getMindPalaceRootChildren: state => state.root.children || [],
 };
-
 
 const mutations = {
     setMindPalace: (state, newValue) => state.root = newValue,
