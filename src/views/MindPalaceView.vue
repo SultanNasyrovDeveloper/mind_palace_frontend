@@ -1,7 +1,7 @@
 <template>
     <v-container
             fluid
-            class="fill-height ma-0 pa-0 grey lighten-4"
+            class="fill-height ma-0 pa-0"
             style="width: 100%;"
     >
         <mind-palace
