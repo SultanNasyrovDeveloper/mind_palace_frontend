@@ -12,7 +12,7 @@
                         <v-list-item
                                 v-for="(language, index) in languageModes"
                                 :key="index"
-                                @click="$emit('change', { body: { language: language.value } })"
+                                @click="changeEditorLanguage(language)"
                         >
                             <v-list-item-title>{{ language.text }}</v-list-item-title>
                         </v-list-item>
@@ -23,7 +23,7 @@
                     :types="$store.getters.getEnums.node_body_types"
                     @change="updateData => $emit('change', updateData)"
                 ></node-type>
-                <v-btn dark color="green darken-2" class="ml-2" elevation="0" @click="save">
+                <v-btn :disabled="!hasChanged" color="green darken-2" class="ml-2" elevation="0" @click="save">
                     Save
                 </v-btn>
             </div>
@@ -31,6 +31,7 @@
 
         <template v-slot:editor>
             <code-editor
+                    ref="codeEditor"
                     :options="editorOptions"
                     v-model="editorContent"
                     @input="onInput"
@@ -48,10 +49,11 @@
 
     // import style
     import 'codemirror/lib/codemirror.css'
-    import '@/assets/code_editor/code_editor.css'
+    import 'codemirror/theme/duotone-light.css'
 
     // import language modes
     import 'codemirror/mode/css/css.js'
+    import 'codemirror/mode/clike/clike.js'
     import 'codemirror/mode/django/django.js'
     import 'codemirror/mode/dockerfile/dockerfile.js'
     import 'codemirror/mode/go/go.js'
@@ -73,6 +75,7 @@
 
     const languageModes = [
         { text: 'Css', value: 'text/css'},
+        { text: 'C', value: 'text/x-csrc'},
         { text: 'Javascript', value: 'text/javascript'},
         { text: 'Django', value: 'text/x-django'},
         { text: 'Dockerfile', value: 'text/x-dockerfile'},
@@ -103,7 +106,8 @@
                 editorOptions: {
                     mode: this.getEditorLanguage(),
                     lineNumbers: true,
-                    tabSize: 4
+                    tabSize: 4,
+                    theme: 'duotone-light',
                 },
                 editorContent: '',
                 languageModes,
@@ -126,11 +130,16 @@
                 }
                 if (!_.isEmpty(dataToUpdate)) {
                     this.$emit('change', { body: dataToUpdate });
-                }
+                };
+                this.$refs.codeEditor.codemirror.setSize('45vw', '72vh')
             },
             getEditorLanguage() {
                 if (this.node.body.hasOwnProperty('language')) return this.node.body.language;
                 return 'text/javascript'
+            },
+            changeEditorLanguage(newLanguage) {
+                this.editorOptions.mode = newLanguage.value;
+                this.$emit('change', { body: { language: newLanguage.value } })
             },
             onInput() {
                 if (this.editorContent !== this.nodeEditorContent) this.hasChanged  = true;
@@ -141,6 +150,7 @@
                     const data = { body: { code_content: this.editorContent } };
                     this.$emit('change', data);
                 }
+                this.hasChanged = false;
             }
         },
         watch: {
@@ -148,20 +158,26 @@
                 if (newValue !== this.editorContent) {
                     this.editorContent = this.nodeEditorContent;
                 }
+            },
+            editorContent(newValue) {
+                if (newValue !== this.nodeEditorContent) {
+                    this.hasChanged = true;
+                }
+                else {
+                    this.hasChanged = false;
+                }
             }
         },
-        async beforeMount() {
-            if (!this.node.body.hasOwnProperty('language') ||
-                !this.node.body.hasOwnProperty('color_scheme')
-            ) {
-                await this.initCodeEditor();
-            }
-        },
+
         async mounted() {
+            await this.initCodeEditor();
             this.editorContent = this.nodeEditorContent;
         }
     }
 </script>
 
 <style scoped>
+    .CodeMirror {
+        height: 70vh;
+    }
 </style>
