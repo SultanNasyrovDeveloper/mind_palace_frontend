@@ -4,7 +4,7 @@
             <v-col cols="12 pb-0">
                 <slot name="header"></slot>
             </v-col>
-            <v-col cols="7" class="d-flex align-start" style="height: 80vh">
+            <v-col cols="7" class="d-flex align-start" style="height: 75vh">
                 <slot name="body"></slot>
             </v-col>
             <v-col cols="5">
