@@ -28,9 +28,7 @@
                     </v-container>
 
                 </v-card-title>
-                <v-card-subtitle>
-                    <node-statistics :statisticsId="node.learning_statistics"></node-statistics>
-                </v-card-subtitle>
+
                 <v-card-text>
                     <v-container fluid class="mx-0 px-0 pt-0 mt-0">
                         <node-tags
@@ -44,6 +42,10 @@
                             @change="updateData => $emit('change', updateData)"
                     ></node-description>
                 </v-card-text>
+
+                <v-card-actions>
+                    <node-statistics :statisticsId="node.learning_statistics"></node-statistics>
+                </v-card-actions>
             </v-card>
         </template><!--/NODE GENERAL INFORMATION-->
 

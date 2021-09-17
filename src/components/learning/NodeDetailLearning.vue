@@ -21,7 +21,6 @@
         <v-card-actions class="d-flex flex-column">
             <v-container fluid class="d-flex justify-end">
                 <v-btn v-if="!session" @click="startSession">Start learning session</v-btn>
-
             </v-container>
             <v-container fluid class="d-flex justify-center" v-if="session">
                 <v-rating
