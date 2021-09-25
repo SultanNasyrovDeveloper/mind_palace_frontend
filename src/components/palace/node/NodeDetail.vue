@@ -30,13 +30,6 @@
                 </v-card-title>
 
                 <v-card-text>
-                    <v-container fluid class="mx-0 px-0 pt-0 mt-0">
-                        <node-tags
-                            :value="node.tags"
-                            @change="updateData => $emit('change', updateData)"
-                        ></node-tags>
-                    </v-container>
-
                     <node-description
                             :value="node.title"
                             @change="updateData => $emit('change', updateData)"

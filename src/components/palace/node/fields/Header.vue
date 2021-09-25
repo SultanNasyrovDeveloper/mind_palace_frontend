@@ -39,6 +39,7 @@
                         {name: 'mypalace', params: {rootId: this.$store.getters.getMindPalaceRootId}}
                     );
                 }
+                // TODO: else go to user mind palace root
 
             }
         }

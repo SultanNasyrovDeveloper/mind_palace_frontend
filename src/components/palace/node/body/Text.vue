@@ -95,5 +95,7 @@
 </script>
 
 <style scoped>
-
+    .ql-container {
+        border: none !important;
+    }
 </style>

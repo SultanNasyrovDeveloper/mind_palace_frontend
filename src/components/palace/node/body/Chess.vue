@@ -18,19 +18,35 @@
                         <div id="board1" style="width: 100%"></div>
                     </v-col>
                     <v-col cols="4" class="d-flex flex-column">
-                        <v-card elevation="0">
-                            <v-card-title class="d-flex justify-space-between">
-                                <v-btn icon @click="chessboard.position(startPosition)"><<</v-btn>
+                        <v-card elevation="0" class="pa-0">
+                            <v-card-title class="d-flex justify-space-between mx-0 pa-0">
+                                <v-btn icon :disabled="!hasChanged" @click="chessboard.position(startPosition)"><<</v-btn>
                                 <v-btn icon @click="() => { chessboard.flip() }">
                                     <v-icon>mdi-sync</v-icon>
                                 </v-btn>
                                 <v-btn icon>
                                     <v-icon>mdi-lead-pencil</v-icon>
                                 </v-btn>
-                                <v-btn icon :disabled="currentPosition === startPosition">
+                                <v-btn icon :disabled="!hasChanged" @click="setNodePosition">
                                     <v-icon color="success">mdi-check</v-icon>
                                 </v-btn>
                             </v-card-title>
+                            <v-card-text class="mx-0 px-0 pt-3">
+                                <v-textarea
+                                        v-model="positionAnalysis"
+                                        label="Analysis"
+                                        filled
+                                        @input="onPositionAnalysisChange"
+                                ></v-textarea>
+                                <v-container fluid class="d-flex justify-end mt-0 pt-0">
+                                    <v-btn
+                                            color="success"
+                                            plain
+                                            :disabled="!analysisChanged"
+                                            @click="() => { $emit('change', {body: {analysis: positionAnalysis}}); analysisChanged = false}"
+                                    >save</v-btn>
+                                </v-container>
+                            </v-card-text>
                         </v-card>
                     </v-col>
                 </v-row>
@@ -52,13 +68,17 @@
     export default {
         name: "Chess",
         props: ['node'],
+        components: { BaseNodeBody, NodeType },
         data() {
             return {
                 isEdited: false,
+                hasChanged: false,
                 mode: 'test',
                 game: null,
                 chessboard: null,
                 currentPosition: null,
+                positionAnalysis: '',
+                analysisChanged: false,
             }
         },
         computed: {
@@ -68,10 +88,9 @@
             }),
             startPosition() {
                 if (this.chessBody.hasOwnProperty('position')) return this.chessBody.position;
-                return 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'
+                return 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
             },
         },
-        components: { BaseNodeBody, NodeType },
         methods: {
             async init() {
                 this.game = new Chess();
@@ -85,14 +104,20 @@
                     }
                 );
                 this.currentPosition = this.startPosition;
-                console.log(this.startPosition);
-                console.log(this.currentPosition);
+                if (this.chessBody.hasOwnProperty('analysis')) this.positionAnalysis = this.chessBody.analysis;
             },
             onPositionChange(old, new_) {
-
+                this.hasChanged = ChessBoard.objToFen(new_) !== this.startPosition;
             },
-            validateMove(previousPosition, newPosition) {
-
+            onPositionAnalysisChange() {
+                if (this.chessBody.hasOwnProperty('analysis')) {
+                    this.analysisChanged = this.positionAnalysis !== this.chessBody.analysis;
+                }
+            },
+            async setNodePosition() {
+                const updateData = {body: { position: ChessBoard.objToFen(this.chessboard.position()) }};
+                this.$emit('change', updateData);
+                this.hasChanged = false;
             }
         },
         watch: {
