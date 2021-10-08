@@ -24,7 +24,7 @@
                                 <v-btn icon @click="() => { chessboard.flip() }">
                                     <v-icon>mdi-sync</v-icon>
                                 </v-btn>
-                                <v-btn icon>
+                                <v-btn icon @click="setNewGamePosition">
                                     <v-icon>mdi-lead-pencil</v-icon>
                                 </v-btn>
                                 <v-btn icon :disabled="!hasChanged" @click="setNodePosition">
@@ -85,6 +85,7 @@
             ...mapGetters({
                 chessBody: 'getCurrentNodeBody',
                 type: 'getCurrentNodeType',
+                nodeId: 'getCurrentNodeId'
             }),
             startPosition() {
                 if (this.chessBody.hasOwnProperty('position')) return this.chessBody.position;
@@ -112,16 +113,24 @@
             onPositionAnalysisChange() {
                 if (this.chessBody.hasOwnProperty('analysis')) {
                     this.analysisChanged = this.positionAnalysis !== this.chessBody.analysis;
+                } else {
+                    this.analysisChanged = this.positionAnalysis !== '';
                 }
             },
             async setNodePosition() {
                 const updateData = {body: { position: ChessBoard.objToFen(this.chessboard.position()) }};
                 this.$emit('change', updateData);
                 this.hasChanged = false;
+            },
+            setNewGamePosition() {
+                this.chessboard.position('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
             }
         },
         watch: {
             async type() {
+                await this.init();
+            },
+            async nodeId() {
                 await this.init();
             }
         },

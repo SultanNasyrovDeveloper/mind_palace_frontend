@@ -1,7 +1,6 @@
 <template>
     <v-container fluid class="ma-0 pa-0 fill-height">
         <v-app-bar app clipped-left dense>
-            <v-app-bar-nav-icon @click="$store.commit('toggleSidebar')"></v-app-bar-nav-icon>
             <v-toolbar-title>
                 <router-link to="/">Palaces of Mind</router-link>
             </v-toolbar-title>
@@ -9,25 +8,27 @@
             <user-navbar-menu></user-navbar-menu>
         </v-app-bar>
 
-        <v-navigation-drawer app clipped v-if="$store.getters.getSidebar">
+        <v-navigation-drawer app clipped mini-variant>
             <v-list>
                 <v-list-item :to="{name: 'dashboard'}">
+                    <v-list-item-icon><v-icon>mdi-view-dashboard-variant</v-icon></v-list-item-icon>
                     <v-list-item-title>Dashboard</v-list-item-title>
                 </v-list-item>
                 <v-list-item :to="{ name: 'mypalace', params: { rootId: $store.getters.getUserMindPalaceRootId }}">
+                    <v-list-item-icon><v-icon>mdi-sitemap</v-icon></v-list-item-icon>
                     <v-list-item-title>My mind palace</v-list-item-title>
                 </v-list-item>
-                <v-list-item>
-                    <v-list-item-title>Favorites</v-list-item-title>
-                </v-list-item>
                 <v-list-item :to="{name: 'learning'}">
+                    <v-list-item-icon><v-icon>mdi-school</v-icon></v-list-item-icon>
                     <v-list-item-title>Learning</v-list-item-title>
                 </v-list-item>
                 <v-list-item>
-                    <v-list-item-title>People (under development)</v-list-item-title>
+                    <v-list-item-icon><v-icon>mdi-heart</v-icon></v-list-item-icon>
+                    <v-list-item-title>Favorites</v-list-item-title>
                 </v-list-item>
-                <v-list-item :to="{name: 'profile'}">
-                    <v-list-item-title>Profile</v-list-item-title>
+                <v-list-item>
+                    <v-list-item-icon><v-icon>mdi-account-group</v-icon></v-list-item-icon>
+                    <v-list-item-title>People (under development)</v-list-item-title>
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
