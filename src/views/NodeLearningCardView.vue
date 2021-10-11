@@ -12,7 +12,7 @@
 
             </v-card-text>
             <v-card-actions>
-                <v-btn @click="">Finish session</v-btn>
+                <v-btn @click="finishSession">Finish session</v-btn>
                 <v-btn @click="$router.push({name: 'node.detail', params: {nodeId: nodeId}})">
                     See card
                 </v-btn>
@@ -39,7 +39,7 @@
         methods: {
             async finishSession() {
                 await this.$store.dispatch('finishSession');
-                this.$router.push({name: 'learning.node', params: {nodeId: 1}});
+                this.$router.push({ name: 'mypalace', params: { rootId: this.$store.getters.getUserMindPalaceRootId }});
             }
         },
         watch: {
