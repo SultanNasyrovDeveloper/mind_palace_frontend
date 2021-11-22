@@ -30,6 +30,10 @@
                     <v-list-item-icon><v-icon>mdi-account-group</v-icon></v-list-item-icon>
                     <v-list-item-title>People (under development)</v-list-item-title>
                 </v-list-item>
+                <v-list-item :to="{name: 'profile'}">
+                    <v-list-item-icon><v-icon>mdi-account</v-icon></v-list-item-icon>
+                    <v-list-item-title>Profile</v-list-item-title>
+                </v-list-item>
             </v-list>
         </v-navigation-drawer>
 

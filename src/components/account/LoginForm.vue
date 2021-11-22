@@ -31,7 +31,11 @@
                 const username = this.username;
                 const password = this.password;
                 const credentials = {username: username, password: password};
-                this.$store.dispatch('login', credentials)
+                await this.$store.dispatch('login', credentials);
+                if (!this.$store.getters.getUserId) {
+                    this.$store.dispatch('fetchCurrentUser');
+                }
+                this.$router.push({name: 'dashboard'});
             }
         }
     }
