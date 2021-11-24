@@ -1,6 +1,9 @@
 <template>
     <base-node-body>
-        <template v-slot:card-name>{{ node.name }}</template>
+        <template v-slot:card-name>
+            Node body: {{ node.name }}
+        </template>
+
         <template v-slot:options>
             <div>
                 <node-type
@@ -9,28 +12,50 @@
                     @change="updateData => $emit('change', updateData)"
                 ></node-type>
             </div>
+            <v-btn :disabled="!hasChanged" @click="setNodePosition" class="success">
+                Save
+            </v-btn>
         </template>
 
         <template v-slot:editor>
             <v-container fluid class="ma-0 pa-0">
                 <v-row>
                     <v-col cols="8">
-                        <div id="board1" style="width: 100%"></div>
+                        <div :id="chessboardId" style="width: 100%"></div>
                     </v-col>
                     <v-col cols="4" class="d-flex flex-column">
                         <v-card elevation="0" class="pa-0">
+
                             <v-card-title class="d-flex justify-space-between mx-0 pa-0">
-                                <v-btn icon :disabled="!hasChanged" @click="chessboard.position(startPosition)"><<</v-btn>
-                                <v-btn icon @click="() => { chessboard.flip() }">
-                                    <v-icon>mdi-sync</v-icon>
-                                </v-btn>
-                                <v-btn icon @click="setNewGamePosition">
-                                    <v-icon>mdi-lead-pencil</v-icon>
-                                </v-btn>
-                                <v-btn icon :disabled="!hasChanged" @click="setNodePosition">
-                                    <v-icon color="success">mdi-check</v-icon>
-                                </v-btn>
+                                <v-tooltip bottom>
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-btn
+                                                icon
+                                                :disabled="!hasChanged"
+                                                @click="chessboard.position(startPosition)"
+                                                v-on="on"
+                                        ><<</v-btn>
+                                    </template>
+                                    <span>Return to start position.</span>
+                                </v-tooltip>
+                                <v-tooltip bottom>
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-btn icon @click="() => { chessboard.flip() }" v-on="on">
+                                            <v-icon>mdi-sync</v-icon>
+                                        </v-btn>
+                                    </template>
+                                    <span>Change color.</span>
+                                </v-tooltip>
+                                <v-tooltip bottom>
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-btn icon @click="setNewGamePosition" v-on="on">
+                                            <v-icon>mdi-lead-pencil</v-icon>
+                                        </v-btn>
+                                    </template>
+                                    <span>Open position redactor</span>
+                                </v-tooltip>
                             </v-card-title>
+
                             <v-card-text class="mx-0 px-0 pt-3">
                                 <v-textarea
                                         v-model="positionAnalysis"
@@ -47,40 +72,46 @@
                                     >save</v-btn>
                                 </v-container>
                             </v-card-text>
+
                         </v-card>
                     </v-col>
                 </v-row>
             </v-container>
-
         </template>
+
     </base-node-body>
 </template>
 
 <script>
     import { mapGetters } from  'vuex';
     import ChessBoard from "chessboardjs-vue";
-
     import BaseNodeBody from '@/components/palace/node/body/Base'
     import NodeType from '@/components/palace/node/fields/Type'
 
     const Chess = require('chess.js');
 
     export default {
+
         name: "Chess",
         props: ['node'],
         components: { BaseNodeBody, NodeType },
+
         data() {
             return {
-                isEdited: false,
-                hasChanged: false,
-                mode: 'test',
                 game: null,
                 chessboard: null,
+                chessboardId: 'chessboard',
+                mode: 'test',
+
                 currentPosition: null,
+                hasChanged: false,
+                isEdited: false,
+
                 positionAnalysis: '',
                 analysisChanged: false,
             }
         },
+
         computed: {
             ...mapGetters({
                 chessBody: 'getCurrentNodeBody',
@@ -92,11 +123,12 @@
                 return 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
             },
         },
+
         methods: {
             async init() {
                 this.game = new Chess();
                 this.chessboard = ChessBoard(
-                    'board1',
+                    this.chessboardId,
                     {
                         draggable: true,
                         position: this.startPosition,
@@ -108,7 +140,7 @@
                 if (this.chessBody.hasOwnProperty('analysis')) this.positionAnalysis = this.chessBody.analysis;
             },
             onPositionChange(old, new_) {
-                this.hasChanged = ChessBoard.objToFen(new_) !== this.startPosition;
+                this.hasChanged = this.chessboard.objToFen(new_) !== this.startPosition;
             },
             onPositionAnalysisChange() {
                 if (this.chessBody.hasOwnProperty('analysis')) {
@@ -126,6 +158,7 @@
                 this.chessboard.position('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
             }
         },
+
         watch: {
             async type() {
                 await this.init();
@@ -134,6 +167,7 @@
                 await this.init();
             }
         },
+
         async mounted() {
             await this.init();
         }

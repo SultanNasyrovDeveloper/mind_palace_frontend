@@ -45,7 +45,7 @@ const actions = {
                 console.log(error);
             })
     },
-    async login({ commit, dispatch }, credentials) {
+    async login({ commit }, credentials) {
         return client.post('/auth/token/', credentials)
             .then(response => {
                 const apiKey = response.data.access;
@@ -57,10 +57,6 @@ const actions = {
                 commit('setApiKey', apiKey);
                 commit('setApiRefreshKey', apiRefreshKey);
                 commit('setUserIsLoggedIn', true);
-
-                dispatch('fetchCurrentUser');
-
-                router.push({name: 'dashboard'});
             })
             .catch(error => {
                 console.log(error);

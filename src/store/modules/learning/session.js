@@ -3,17 +3,19 @@ import apiClient from '@/services/api';
 const state = {
     learningSession: null,
     learningNodeId: null,
-
+    sessions: []
 };
 
 const getters = {
     getCurrentLearningSession: state => state.learningSession,
     getCurrentLearningSessionId: state => state.learningSession.id || null,
     getCurrentLearningNodeId: state => state.learningNodeId,
+    getLearningSessions: state => state.sessions,
 };
 
 const mutations = {
     setCurrentLearningSession: (state, newValue) => state.learningSession = newValue,
+    setLearningSessions: (state, newValue) => state.sessions = newValue,
 };
 
 const actions = {
@@ -50,6 +52,14 @@ const actions = {
                 commit('setSnackbarText', error.toString());
                 commit('setShowSnackbar', true);
             })
+    },
+    async fetchSessionList({ commit }, [page, count, query]) {
+        const response = await apiClient.get(`/learning/sessions/?offset=${page * count}&limit=${count}`, query);
+        if (response.status === 200) {
+            commit('setLearningSessions', response.data.results);
+            return response.data;
+        }
+
     },
     async studyNode({ commit, getters }, [nodeId, studyRating]) {
         return apiClient.post(
