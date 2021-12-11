@@ -21,8 +21,10 @@
                                 <node-name :value="node.name" @change="updateData => $emit('change', updateData)"></node-name>
                             </v-col>
                             <v-col cols="4" class="d-flex justify-end mx-0 pa-0">
+
                                 <v-icon @click="$router.push({name: 'mypalace', params: {rootId: node.id}})">
-                                    mdi-family-tree</v-icon>
+                                    mdi-sitemap
+                                </v-icon>
                             </v-col>
                         </v-row>
                     </v-container>

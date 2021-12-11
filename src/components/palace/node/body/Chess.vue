@@ -34,7 +34,9 @@
                                                 :disabled="!hasChanged"
                                                 @click="chessboard.position(startPosition)"
                                                 v-on="on"
-                                        ><<</v-btn>
+                                        >
+                                            <v-icon>mdi-arrow-left-bold-box-outline</v-icon>
+                                        </v-btn>
                                     </template>
                                     <span>Return to start position.</span>
                                 </v-tooltip>
@@ -46,35 +48,36 @@
                                     </template>
                                     <span>Change color.</span>
                                 </v-tooltip>
-                                <v-tooltip bottom>
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-btn icon @click="setNewGamePosition" v-on="on">
-                                            <v-icon>mdi-lead-pencil</v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Open position redactor</span>
-                                </v-tooltip>
                             </v-card-title>
 
                             <v-card-text class="mx-0 px-0 pt-3">
-                                <v-textarea
-                                        v-model="positionAnalysis"
-                                        label="Analysis"
-                                        filled
-                                        @input="onPositionAnalysisChange"
-                                ></v-textarea>
-                                <v-container fluid class="d-flex justify-end mt-0 pt-0">
-                                    <v-btn
-                                            color="success"
-                                            plain
-                                            :disabled="!analysisChanged"
-                                            @click="() => { $emit('change', {body: {analysis: positionAnalysis}}); analysisChanged = false}"
-                                    >save</v-btn>
-                                </v-container>
-                            </v-card-text>
+                                <v-expansion-panels>
+                                    <v-expansion-panel>
+                                        <v-expansion-panel-header>Analysis</v-expansion-panel-header>
+                                        <v-expansion-panel-content>
+                                            <v-textarea
+                                                    v-model="positionAnalysis"
+                                                    placeholder="Input your analysis."
+                                                    @input="onPositionAnalysisChange"
+                                            ></v-textarea>
+                                            <v-container fluid class="d-flex justify-end mt-0 pt-0">
+                                                <v-btn
+                                                        color="success"
+                                                        plain
+                                                        :disabled="!analysisChanged"
+                                                        @click="() => { $emit('change', {body: {analysis: positionAnalysis}}); analysisChanged = false}"
+                                                >save</v-btn>
+                                            </v-container>
+                                        </v-expansion-panel-content>
+                                    </v-expansion-panel>
 
+                                    <v-expansion-panel>
+                                        <v-expansion-panel-header>Lines</v-expansion-panel-header>
+                                    </v-expansion-panel>
+                                </v-expansion-panels>
+                            </v-card-text>
                         </v-card>
-                    </v-col>
+                    </v-col><!-- -->
                 </v-row>
             </v-container>
         </template>
@@ -83,6 +86,7 @@
 </template>
 
 <script>
+    // TODO: Save  color change using save button too.
     import { mapGetters } from  'vuex';
     import ChessBoard from "chessboardjs-vue";
     import BaseNodeBody from '@/components/palace/node/body/Base'
@@ -127,20 +131,21 @@
         methods: {
             async init() {
                 this.game = new Chess();
-                this.chessboard = ChessBoard(
+                this.chessboard = new ChessBoard(
                     this.chessboardId,
                     {
                         draggable: true,
                         position: this.startPosition,
                         onChange: this.onPositionChange,
-                        sparePeaces: true
+                        showNotation: true
                     }
                 );
                 this.currentPosition = this.startPosition;
                 if (this.chessBody.hasOwnProperty('analysis')) this.positionAnalysis = this.chessBody.analysis;
             },
             onPositionChange(old, new_) {
-                this.hasChanged = this.chessboard.objToFen(new_) !== this.startPosition;
+                console.log(ChessBoard.objToFen(new_))
+                this.hasChanged = Chessboard.objToFen(new_) !== this.startPosition;
             },
             onPositionAnalysisChange() {
                 if (this.chessBody.hasOwnProperty('analysis')) {

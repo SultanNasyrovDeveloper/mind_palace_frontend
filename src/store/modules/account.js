@@ -1,6 +1,6 @@
 import client from '@/services/api'
 import router from '@/router'
-
+// TODO: Refactor methods
 
 const state = {
     user: {},

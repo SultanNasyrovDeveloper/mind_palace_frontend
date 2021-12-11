@@ -2,8 +2,8 @@
     <v-card>
         <v-card-title>Create node</v-card-title>
         <v-card-text>
-            <v-form>
-                <v-text-field autofocus v-model="name" label="Name"></v-text-field>
+            <v-form @submit="formSubmit">
+                <v-text-field autofocus v-model="name" label="Name" @key></v-text-field>
             </v-form>
         </v-card-text>
         <v-card-actions>
@@ -23,6 +23,9 @@
             }
         },
         methods: {
+            formSubmit() {
+                console.log('Test')
+            },
             onSaveClick() {
                 if (!this.parentId) console.log('Error! Parent id not specified');
                 const data = {

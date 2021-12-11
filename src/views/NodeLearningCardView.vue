@@ -1,26 +1,20 @@
 <template>
     <v-container fluid class="d-flex justify-center">
-        <v-card min-width="40vw">
-            <v-card-title class="d-flex flex-column align-start">
-                <node-breadcrumbs :items="node.ancestors"></node-breadcrumbs>
-                {{ node.name }}
-            </v-card-title>
-            <v-card-subtitle>
-
-            </v-card-subtitle>
-            <v-card-text>
-
+        <v-card  min-width="40vw" style="min-height: 30vh">
+            <v-card-text class="fill-height d-flex flex-column justify-center">
+                <v-container fluid class="d-flex flex-column align-center">
+                    <node-breadcrumbs :items="node.ancestors"></node-breadcrumbs>
+                    <span class="headline mt-3">{{ node.name }}</span>
+                </v-container>
+                <v-container class="d-flex justify-center mt-5">
+                    <v-btn class="mr-2"  @click="finishSession">Finish session</v-btn>
+                    <v-btn class="ml-2 success" @click="$router.push({name: 'node.detail', params: {nodeId: nodeId}})">
+                        See card
+                    </v-btn>
+            </v-container>
             </v-card-text>
-            <v-card-actions>
-                <v-btn @click="finishSession">Finish session</v-btn>
-                <v-btn @click="$router.push({name: 'node.detail', params: {nodeId: nodeId}})">
-                    See card
-                </v-btn>
-            </v-card-actions>
         </v-card>
-
     </v-container>
-
 </template>
 
 <script>

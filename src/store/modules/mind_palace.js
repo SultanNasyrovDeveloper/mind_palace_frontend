@@ -1,26 +1,35 @@
-import client from '@/services/api'
+import client from '@/services/api';
+import _ from 'lodash';
 
 const state = {
     root: {},
     node: {},
+    mediaTypes: {}
 };
 
 const getters = {
     getMindPalace: state => state.root,
-    getCurrentNode: state => state.node,
-    getCurrentNodeId: state => state.node.id || null,
-    getCurrentNodeBody: state => state.node.body || null,
-    getCurrentNodeType: state => state.node.body_type || null,
-    getCurrentNodeMedia: state => state.node.media || null,
-    getCurrentNodeLearningStatisticsId: state => state.node.learning_statistics || null,
+    getNodeInPalace: (state, nodeId) => {
+        return false
+    },
     getMindPalaceRootId: state => state.root.id || null,
     getMindPalaceRootParentId: state => state.root.parent || null,
     getMindPalaceRootChildren: state => state.root.children || [],
+
+    getCurrentNode: state => state.node,
+    getCurrentNodeId: state => _.get(state.node, 'id', null),
+    getCurrentNodeBody: state => state.node.body || null,
+    getCurrentNodeType: state => state.node.body_type || null,
+    getCurrentNodeMedia: state => state.node.media || null,
+
+    getCurrentNodeChildren: state => _.get(state.node, 'chidlren', []),
+    getCurrentNodeLearningStatisticsId: state => state.node.learning_statistics || null,
 };
 
 const mutations = {
     setMindPalace: (state, newValue) => state.root = newValue,
     addMindPalaceNode(state, newNode) {
+        // TODO: Refactoring.
         let treeRoot = state.root;
         let newNodeClean = {
             id: newNode.id,
@@ -45,7 +54,9 @@ const mutations = {
             }
         }
     },
-    setCurrentNode: (state, newNode) => state.node = newNode,
+    updateMindPalaceNode(state, updatedNode) {
+
+    },
     removePalaceNode(state, nodeId) {
         if (nodeId === state.root.id) { state.root = {}; return; }
         for (const child of state.root.children) {
@@ -61,6 +72,10 @@ const mutations = {
             }
         }
     },
+
+    setCurrentNode: (state, newNode) => state.node = newNode,
+    setCurrentNodeChildren: (state, newValue) => state.node.children = newValue,
+
 };
 
 const actions = {
@@ -95,14 +110,23 @@ const actions = {
                 console.log(error);
             })
     },
+    async fetchNodeChildren({ commit }, nodeId) {
+
+    },
+    async fetchMindPalaceNodeMediatypes() {},
     async updateNode({ commit, getters }, [nodeId, updateData]) {
         return client.patch(`/palace/nodes/${nodeId}/`, updateData)
             .then(response => {
-                commit('setCurrentNode', response.data);
+                if (nodeId == getters.getCurrentNodeId) {
+                    commit('setCurrentNode', response.data);
+                }
             })
             .catch(error => {
                 console.log(error);
             })
+    },
+    async addNodeMedia({ commit, getters }, [nodeId, mediaData]) {
+        return client.post(``)
     },
     async deleteNode({ commit }, nodeId) {
         return client.delete(`/palace/nodes/${nodeId}/`)
@@ -112,7 +136,6 @@ const actions = {
             .catch(error => {
                 console.log(error);
             })
-
     }
 
 };

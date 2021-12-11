@@ -8,14 +8,17 @@
                                 plain
                                 icon
                                 v-if="$store.getters.getMindPalaceRootId"
+                                class="mr-4"
                                 @click="goBackToMindPalace"
                         >
-                            <v-icon>mdi-arrow-left</v-icon>
+                            <v-icon>mdi-arrow-left-bold-box</v-icon>
                         </v-btn>
                         <node-breadcrumbs :items="node.ancestors"></node-breadcrumbs>
                     </v-col>
                     <v-col cols="4" class="d-flex justify-end align-center">
-                        <v-btn plain>Configure</v-btn>
+                        <v-btn icon plain>
+                            <v-icon>mdi-cog</v-icon>
+                        </v-btn>
                     </v-col>
                 </v-row>
             </v-container>
@@ -40,7 +43,6 @@
                     );
                 }
                 // TODO: else go to user mind palace root
-
             }
         }
     }

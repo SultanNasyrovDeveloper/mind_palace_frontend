@@ -1,28 +1,28 @@
 <template>
     <v-container fluid class="pt-0">
-        <v-row class="my-1">
+        <v-row class="mt-1">
             <v-col cols="3" class="d-flex flex-column align-center">
                 <v-icon class="my-1">mdi-eye</v-icon>
-                <span class="caption">Views</span>
                 <span class="caption">{{ stats.views}}</span>
+                <span class="caption">Views</span>
             </v-col>
             <v-col cols="3" class="d-flex flex-column align-center">
-                <v-icon class="my-1">mdi-repeat-once</v-icon>
-                <span class="caption">Repetitions</span>
+                <v-icon class="my-1">mdi-repeat</v-icon>
                 <span class="caption">{{ stats.repetitions }}</span>
+                <span class="caption">Repetitions</span>
             </v-col>
             <v-col cols="3" class="d-flex flex-column align-center">
                 <v-icon class="my-1">mdi-lightbulb</v-icon>
-                <span class="caption">Understanding</span>
                 <span class="caption">{{ stats.easiness }}</span>
+                <span class="caption">Understanding</span>
             </v-col>
             <v-col cols="3" class="d-flex flex-column align-center">
                 <v-icon class="my-1">mdi-star</v-icon>
-                <span class="caption">Average rate</span>
                 <span class="caption">{{ stats.average_rate }}</span>
+                <span class="caption">Average rate</span>
             </v-col>
         </v-row>
-        <div class="d-flex align-center mt-2">
+        <div class="d-flex align-center mt-10">
             <v-icon small class="mr-2">mdi-calendar</v-icon>
             <span class="body-2">Next repetition: {{ nextRepetitionBuitified }}</span>
         </div>

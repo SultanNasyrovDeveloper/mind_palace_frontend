@@ -44,7 +44,7 @@
 
     export default {
         name: "NodeTextBody",
-        props: ['node'],
+        props: {node: Number, height: {default: '500px'}},
         components: { BaseNodeBody, NodeType, TextEditor: quillEditor },
         data() {
             return {
@@ -60,6 +60,9 @@
             nodeEditorContent() {
                 if (this.node.body.hasOwnProperty('text_content')) return this.node.body.text_content;
                 return ''
+            },
+            editorContainerHeight() {
+                return this.$refs.textEditor.parentNode.offsetHeight
             }
         },
         methods: {
@@ -95,7 +98,7 @@
 </script>
 
 <style scoped>
-    .ql-container {
-        border: none !important;
+    .quill-editor{
+        height: 60vh;
     }
 </style>

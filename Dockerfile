@@ -1,16 +1,12 @@
-# base image
-FROM node:12.2.0-alpine
+FROM node
 
-# set working directory
+COPY /frontend /app
 WORKDIR /app
+EXPOSE 8000
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+RUN npm install -g npm
+RUN npm install -g @vue/cli @vue/cli-service @vue/cli-plugin-babel @vue/cli-plugin-eslint @vue/cli-plugin-pwa vue-template-compiler@^2.0.0 vue-cli-plugin-i18n ajv@^5.0.0 chart.js@2.7.x webpack
 
-# install and cache app dependencies
-COPY package.json /app/package.json
 RUN npm install
-RUN npm install @vue/cli@3.7.0 -g
 
-# start app
-CMD ["npm", "run", "serve"]
+ENTRYPOINT ['/bin/bash/', 'docker/docker_entrypoint.sh']

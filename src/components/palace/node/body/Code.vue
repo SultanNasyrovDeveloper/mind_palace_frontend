@@ -14,7 +14,7 @@
                                 :key="index"
                                 @click="changeEditorLanguage(language)"
                         >
-                            <v-list-item-title>{{ language.text }}</v-list-item-title>
+                            <v-list-item-title><span class="body-2">{{ language.text }}</span></v-list-item-title>
                         </v-list-item>
                     </v-list>
                 </v-menu>
@@ -49,7 +49,7 @@
 
     // import style
     import 'codemirror/lib/codemirror.css'
-    import 'codemirror/theme/duotone-light.css'
+    import 'codemirror/theme/neat.css'
 
     // import language modes
     import 'codemirror/mode/css/css.js'
@@ -107,7 +107,8 @@
                     mode: this.getEditorLanguage(),
                     lineNumbers: true,
                     tabSize: 4,
-                    theme: 'duotone-light',
+                    theme: 'neat',
+                    autofocus: true
                 },
                 editorContent: '',
                 languageModes,
@@ -115,7 +116,7 @@
         },
         computed: {
             nodeEditorContent() {
-                return this.node.body.hasOwnProperty('code_content') ? this.node.body.code_content : '';
+                return this.node.body.hasOwnProperty('code_content') ? this.node.body.code_content : 'Insert text here...';
             }
         },
         methods: {
@@ -131,7 +132,8 @@
                 if (!_.isEmpty(dataToUpdate)) {
                     this.$emit('change', { body: dataToUpdate });
                 };
-                this.$refs.codeEditor.codemirror.setSize('45vw', '72vh')
+                this.$refs.codeEditor.codemirror.setSize('52vw', '69vh');
+                console.log(this.$refs.codeEditor);
             },
             getEditorLanguage() {
                 if (this.node.body.hasOwnProperty('language')) return this.node.body.language;
@@ -177,7 +179,4 @@
 </script>
 
 <style scoped>
-    .CodeMirror {
-        height: 70vh;
-    }
 </style>

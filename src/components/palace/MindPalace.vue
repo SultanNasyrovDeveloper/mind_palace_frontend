@@ -3,10 +3,11 @@
         <v-row>
             <v-col cols="12" class="d-flex justify-end">
                 <v-btn
-                        plain
+                        icon
+                        large
                         :to="{name: 'mypalace', params: {rootId: $store.getters.getMindPalaceRootParentId}}"
                 >
-                    <v-icon v-if="$store.getters.getMindPalaceRootParentId" x-large color="grey">
+                    <v-icon v-if="$store.getters.getMindPalaceRootParentId">
                         mdi-arrow-up-box
                     </v-icon>
                 </v-btn>

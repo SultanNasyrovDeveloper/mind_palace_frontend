@@ -1,7 +1,7 @@
 <template>
     <v-container fluid class="ma-0 fill-height d-flex align-start">
         <v-row>
-            <v-col cols="12 pb-0">
+            <v-col cols="12" class="pb-0">
                 <slot name="header"></slot>
             </v-col>
             <v-col cols="7" class="d-flex align-start" style="height: 75vh">

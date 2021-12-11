@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="ma-0 pa-0 fill-height">
+    <v-container fluid class="ma-0 pa-0 fill-height grey lighten-4">
         <v-app-bar app clipped-left dense>
             <v-toolbar-title>
                 <router-link to="/">Palaces of Mind</router-link>
@@ -58,6 +58,14 @@
         async mounted() {
             await this.$store.dispatch('fetchEnums');
             await this.$store.dispatch('fetchMyActiveSession');
+            if (this.$store.getters.getCurrentLearningSessionId && this.$store.getters.getCurrentLearningNodeId) {
+                this.$router.push(
+                    {name: 'learning.node', params: {nodeId: this.$store.getters.getCurrentLearningNodeId}}
+                )
+            }
+            if (!this.$store.getters.getUserId) {
+                await this.$store.dispatch('fetchCurrentUser');
+            }
         }
     }
 </script>
