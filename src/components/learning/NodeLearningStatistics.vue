@@ -24,7 +24,13 @@
         </v-row>
         <div class="d-flex align-center mt-10">
             <v-icon small class="mr-2">mdi-calendar</v-icon>
-            <span class="body-2">Next repetition: {{ nextRepetitionBuitified }}</span>
+            <span class="body-2">
+                Next repetition: {{ 
+                    $store.getters.getCurrentlearningSession
+                    ? 'Now'
+                    : nextRepetitionBuitified 
+                }}
+            </span>
         </div>
     </v-container>
 </template>

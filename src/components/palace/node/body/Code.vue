@@ -116,7 +116,7 @@
         },
         computed: {
             nodeEditorContent() {
-                return this.node.body.hasOwnProperty('code_content') ? this.node.body.code_content : 'Insert text here...';
+                return this.node.body.hasOwnProperty('code_content') ? this.node.body.code_content : '';
             }
         },
         methods: {

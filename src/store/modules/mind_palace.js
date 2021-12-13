@@ -75,6 +75,13 @@ const mutations = {
 
     setCurrentNode: (state, newNode) => state.node = newNode,
     setCurrentNodeChildren: (state, newValue) => state.node.children = newValue,
+    addCurrentNodeMedia: (state, newMedia) => {
+        if (Array.isArray(_.get(state.node, 'media', null))) {
+            state.node.media.push(newMedia);
+            return;
+        }
+        state.node.media = [newMedia];
+    }
 
 };
 
@@ -126,7 +133,18 @@ const actions = {
             })
     },
     async addNodeMedia({ commit, getters }, [nodeId, mediaData]) {
-        return client.post(``)
+        return client.post(`palace/nodes/${nodeId}/add_media/`, mediaData)
+            .then(response => {
+                console.log(response.data);
+                if (nodeId === getters.getCurrentNodeId) {
+                    commit('addCurrentNodeMedia', response.data);
+                }
+                return response.data;
+            })
+            .catch(error => {
+                commit('setSnackbarText', 'Unable to create media: ' + error);
+                commit('setShowSnackbar', true);
+            })
     },
     async deleteNode({ commit }, nodeId) {
         return client.delete(`/palace/nodes/${nodeId}/`)

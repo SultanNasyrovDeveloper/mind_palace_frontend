@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import apiClient from '@/services/api';
 
 const state = {
@@ -6,11 +8,11 @@ const state = {
 };
 
 const getters = {
-    getCurrentNodeStatistics: state => state.currentNodeStatistics,
-    getCurrentNodeStatisticsId: state => state.currentNodeStatistics.id || null,
+    getCurrentNodeStatistics: state => _.get(state, 'currentNodeStatistics'),
+    getCurrentNodeStatisticsId: state => _.get(state, 'currentNodeStatistics.id'),
     getCurrentNodeStatisticsNodeId: state => {
         if (state.currentNodeStatistics && state.currentNodeStatistics.hasOwnProperty('node')) {
-            return state.currentNodeStatistics.node
+            return state.currentNodeStatistics.node;
         }
     },
 

@@ -71,7 +71,7 @@
     import NodeName from '@/components/palace/node/fields/Name'
     import NodeTags from '@/components/palace/node/fields/Tags'
     import NodeStatistics from '@/components/learning/NodeLearningStatistics'
-    import NodeMedia from '@/components/palace/node/fields/Media'
+    import NodeMedia from '@/components/palace/node/media/MindPalaceNodeMedia'
 
     import NodeDetailLearning from '@/components/learning/NodeDetailLearning'
 
