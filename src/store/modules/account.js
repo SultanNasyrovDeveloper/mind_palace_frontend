@@ -5,69 +5,107 @@ import router from '@/router'
 
 
 const state = {
-    user: {},
+    user: localStorage.getItem('user') || {},
     apiKey: localStorage.getItem('apiKey') || null,
     apiRefreshKey: localStorage.getItem('apiRefreshKey') || null,
 };
 
 const getters = {
     getUser: state => state.user,
-    getUserMindPalaceRootId: state => _.get(state.user, 'mind_palace_root'),
     getUserId: state => _.get(state.user, 'id', null),
-    getUserIsLoggedIn: state => state.isLoggedIn,
+    getUserIsLoggedIn: state => !_.isEmpty(state.apiKey),
+    getUserMindPalaceRootId: state => _.get(state.user, 'mind_palace_root')
 };
 
 const mutations = {
-    setApiKey: (state, newApiKey) => state.apiKey = newApiKey,
-    setApiRefreshKey: (state, newRefreshKey) => state.apiRefreshKey = newRefreshKey,
-    setUserIsLoggedIn: (state, newValue) => state.isLoggedIn = newValue,
-    setCurrentUser: (state, newUser) => state.user = newUser,
+    setApiKey: (state, newApiKey) => {
+        state.apiKey = newApiKey;
+        localStorage.setItem('apiKey', newApiKey);
+    },
+    setApiRefreshKey: (state, newRefreshKey) => {
+        state.apiRefreshKey = newRefreshKey;
+        localStorage.setItem('apiRefreshKey', newRefreshKey);
+    },
+    setCurrentUser: (state, newUser) => {
+        state.user = newUser;
+        localStorage.setItem('user', newUser);
+    },
+    clearUserAccount: state => {
+        state.user = {};
+        state.apiKey = null;
+        state.apiRefreshKey = null;
+        localStorage.removeItem('user');
+        localStorage.removeItem('apiKey');
+        localStorage.removeItem('apiRefreshKey');
+    }
 };
 
 const actions = {
-    async fetchCurrentUser({ commit }) {
-        return client.get('/account/users/me/')
-            .then(response => {
-                const user = response.data;
-                commit('setCurrentUser', user);
-            })
-            .catch(error => {
-                console.log(error);
-            })
+
+    async fetchCurrentUser({ getters, commit }) {
+        if (!getters.getUserId) {
+            return client.get('/account/users/me/')
+                .then(response => {
+                    const user = response.data;
+                    commit('setCurrentUser', user);
+                    return user
+                })
+                .catch(error => {
+                    commit(
+                        'setSnackbarText', 
+                        'Error while fetching current user: ' + error.toString()
+                    );
+                    commit('setShowSnackbar', true);
+                })
+        }
+        
     },
+
     async signup({ commit }, signupCredentials) {
+        commit('clearUserAccount');
         return client.post('/account/signup/', signupCredentials)
-            .then(response => response)
+            .then(response => {
+                if (_.get(response, 'status', null) === 201) {
+                    return true;
+                }
+                return false;
+            })
             .catch(error => {
-                console.log(error);
+                if (_.get(error.response, 'status', null) === 400) {
+                    commit('setSnackbarText', 'Unable to sign up: ' + error.response.data);
+                    commit('setShowSnackbar', true)
+                    return false;
+                }
+                commit('setSnackbarText', 'Unable to sign up: ' + error.toString());
+                commit('setShowSnackbar', true)
+                return false;
             })
     },
+
     async login({ commit, dispatch }, credentials) {
+        commit('clearUserAccount');
+
         return client.post('/auth/token/', credentials)
             .then(response => {
-                const apiKey = response.data.access;
-                const apiRefreshKey = response.data.refresh;
-
-                localStorage.setItem('apiKey', apiKey);
-                localStorage.setItem('apiRefreshKey', apiRefreshKey);
-
-                commit('setApiKey', apiKey);
-                commit('setApiRefreshKey', apiRefreshKey);
-                commit('setUserIsLoggedIn', true);
+                commit('setApiKey', _.get(response.data, 'access'));
+                commit('setApiRefreshKey', _.get(response.data, 'refresh'));
+                dispatch('fetchCurrentUser');
+                return true;
             })
             .catch(error => {
-                console.log(error);
+                commit(
+                    'setSnackbarText', 
+                    'Error occured while trying to signup: ' + error.toString()
+                );
+                commit('setShowSnackbar', true);
+                return false;
             })
     },
+
     async refreshToken({ commit }) {},
+
     async logout({ commit }) {
-        localStorage.removeItem('apiKey');
-        localStorage.removeItem('apiRefreshKey');
-
-        commit('setApiKey', '');
-        commit('setApiRefreshKey', '');
-        commit('setUserIsLoggedIn', false);
-
+        commit('cleaUserAccount');
         router.push('/');
     }
 };

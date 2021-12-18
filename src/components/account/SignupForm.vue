@@ -5,12 +5,14 @@
             <v-card-subtitle>Enter valid username and password.</v-card-subtitle>
             <v-card-text>
                 <v-form
-                    ref="sugnupForm"
+                    ref="signupForm"
                     v-model="formIsValid"
+                    @submit="signup"
                 >
                     <v-container fluid v-if="formErrorMessage">
                         <span class="red--text">{{ formErrorMessage }}</span>
                     </v-container>
+
                     <v-text-field
                             v-model="username"
                             :rules="usernameRules"
@@ -39,7 +41,12 @@
             <v-card-actions class="d-flex justify-center align-center">
                 <v-btn @click="$router.push({name: 'index'})" class="px-5">Cancel</v-btn>
                 <v-btn @click="reset" class="px-5">Reset</v-btn>
-                <v-btn @click="signup" color="success" class="px-5">sign up</v-btn>
+                <v-btn 
+                        @click="signup" 
+                        color="success" 
+                        type="submit" 
+                        class="px-5"
+                >sign up</v-btn>
             </v-card-actions>
         </v-card>
     </div>
@@ -95,15 +102,18 @@
 
             },
             reset() {
-                this.$refs.sugnupForm.reset();
+                this.$refs.signupForm.reset();
             },
             async signup() {
                 this.validate();
                 if (this.formIsValid) {
                     const credentials = {username: this.username, password: this.password};
-                    await this.$store.dispatch('signup', credentials);
-                    await this.$store.dispatch('login', credentials);
-                    this.$router.push({name: 'dashboard'})
+                    const userSignedUp = await this.$store.dispatch('signup', credentials);
+                    if (userSignedUp) {
+                        if (await this.$store.dispatch('login', credentials)) {
+                            this.$router.push({name: 'dashboard'});
+                        }
+                    }
                 }
             }
         }
