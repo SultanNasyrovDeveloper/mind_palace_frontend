@@ -4,10 +4,10 @@ RUN npm install -g http-server
 
 WORKDIR /app
 
-COPY frontend/package*.json ./
+COPY package*.json ./
 RUN npm install
 
-COPY /frontend .
+COPY . .
 
 RUN npx browserslist@latest --update-db
 RUN npm run build
