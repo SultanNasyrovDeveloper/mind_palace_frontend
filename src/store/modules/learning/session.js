@@ -1,14 +1,15 @@
+import _ from 'lodash';
 import apiClient from '@/services/api';
 
 const state = {
-    learningSession: null,
+    learningSession: {},
     learningNodeId: null,
     sessions: []
 };
 
 const getters = {
     getCurrentLearningSession: state => state.learningSession,
-    getCurrentLearningSessionId: state => state.learningSession.id || null,
+    getCurrentLearningSessionId: state => -_.get(state.learningSession, 'id'),
     getCurrentLearningNodeId: state => state.learningNodeId,
     getLearningSessions: state => state.sessions,
 };
@@ -63,9 +64,8 @@ const actions = {
     },
     async studyNode({ commit, getters }, [nodeId, studyRating]) {
         return apiClient.post(
-            `learning/sessions/${getters.getCurrentLearningSessionId}/study_node/`,
-            {node: nodeId, rating: studyRating}
-        )
+                `learning/sessions/${getters.getCurrentLearningSessionId}/study_node/`, { node: nodeId, rating: studyRating }
+            )
             .then(response => {
                 if (response.status === 200) {
                     const next = response.data.next;

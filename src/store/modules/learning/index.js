@@ -3,18 +3,18 @@ import _ from 'lodash';
 import apiClient from '@/services/api';
 
 const state = {
-    currentNodeStatistics: null,
-
+    currentNodeStatistics: {}
 };
 
+
 const getters = {
-    getCurrentNodeStatistics: state => _.get(state, 'currentNodeStatistics'),
+    getCurrentNodeStatistics: state => state.currentNodeStatistics,
     getCurrentNodeStatisticsId: state => _.get(state, 'currentNodeStatistics.id'),
-    getCurrentNodeStatisticsNodeId: state => {
-        if (state.currentNodeStatistics && state.currentNodeStatistics.hasOwnProperty('node')) {
-            return state.currentNodeStatistics.node;
-        }
-    },
+    getCurrentNodeStatisticsNodeId: state => _.get(state.currentNodeStatistics, 'node'),
+    getCurrentNodeViews: state => _.get(state.currentNodeStatistics, 'views'),
+    getCurrentNodeRepetitions: state => _.get(state.currentNodeStatistics, 'repetitions'),
+    getCurrentNodeEasiness: state => _.get(state.currentNodeStatistics, 'easiness'),
+    getCurrentNodeAcerageRate: state => _.get(state.currentNodeStatistics, 'average_rate')
 
 };
 

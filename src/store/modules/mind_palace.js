@@ -9,21 +9,17 @@ const state = {
 
 const getters = {
     getMindPalace: state => state.root,
-    getNodeInPalace: (state, nodeId) => {
-        return false
-    },
-    getMindPalaceRootId: state => state.root.id || null,
-    getMindPalaceRootParentId: state => state.root.parent || null,
-    getMindPalaceRootChildren: state => state.root.children || [],
+    getMindPalaceRootId: state => _.get(state.root, 'id'),
+    getMindPalaceRootParentId: state => _.get(state.root, 'parent', null),
+    getMindPalaceRootChildren: state => _.get(state.root, 'children', []),
 
     getCurrentNode: state => state.node,
     getCurrentNodeId: state => _.get(state.node, 'id', null),
-    getCurrentNodeBody: state => state.node.body || null,
-    getCurrentNodeType: state => state.node.body_type || null,
-    getCurrentNodeMedia: state => state.node.media || null,
-
+    getCurrentNodeBody: state => _.get(state.node, 'body', {}),
+    getCurrentNodeType: state => _.get(state.node, 'body_type'),
+    getCurrentNodeMedia: state => _.get(state.node, 'media', []),
     getCurrentNodeChildren: state => _.get(state.node, 'chidlren', []),
-    getCurrentNodeLearningStatisticsId: state => state.node.learning_statistics || null,
+    getCurrentNodeLearningStatisticsId: state => _.get(state.node, 'learning_statistics', {}),
 };
 
 const mutations = {

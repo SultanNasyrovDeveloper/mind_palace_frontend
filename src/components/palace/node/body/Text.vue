@@ -44,7 +44,7 @@
 
     export default {
         name: "NodeTextBody",
-        props: {node: Number, height: {default: '500px'}},
+        props: {node: Object, height: {default: '500px'}},
         components: { BaseNodeBody, NodeType, TextEditor: quillEditor },
         data() {
             return {

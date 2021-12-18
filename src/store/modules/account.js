@@ -1,22 +1,19 @@
+import _ from 'lodash';
+
 import client from '@/services/api'
 import router from '@/router'
-// TODO: Refactor methods
+
 
 const state = {
     user: {},
-    isLoggedIn: !!localStorage.getItem('apiKey'),
-    apiKey: localStorage.getItem('apiKey') || '',
-    apiRefreshKey: localStorage.getItem('apiRefreshKey') || '',
+    apiKey: localStorage.getItem('apiKey') || null,
+    apiRefreshKey: localStorage.getItem('apiRefreshKey') || null,
 };
 
 const getters = {
     getUser: state => state.user,
-    getUserMindPalaceRootId: state => {
-        if (state.user && state.user.hasOwnProperty('mind_palace_root')) {
-            return state.user.mind_palace_root
-        }
-    },
-    getUserId: state => state.user.hasOwnProperty('id') ? state.user.id : null,
+    getUserMindPalaceRootId: state => _.get(state.user, 'mind_palace_root'),
+    getUserId: state => _.get(state.user, 'id', null),
     getUserIsLoggedIn: state => state.isLoggedIn,
 };
 
@@ -45,7 +42,7 @@ const actions = {
                 console.log(error);
             })
     },
-    async login({ commit }, credentials) {
+    async login({ commit, dispatch }, credentials) {
         return client.post('/auth/token/', credentials)
             .then(response => {
                 const apiKey = response.data.access;
