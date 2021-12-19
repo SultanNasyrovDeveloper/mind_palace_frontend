@@ -2,13 +2,19 @@
     <v-card>
         <v-card-title>Create node</v-card-title>
         <v-card-text>
-            <v-form @submit="formSubmit">
-                <v-text-field autofocus v-model="name" label="Name" @key></v-text-field>
+            <v-form id="node-create-simple" @submit="onSaveClick">
+                <v-text-field autofocus v-model="name" label="Name"></v-text-field>
             </v-form>
         </v-card-text>
         <v-card-actions>
             <v-btn plain @click="$emit('close')">Close</v-btn>
-            <v-btn plain color="success" @click="onSaveClick">Save</v-btn>
+            <v-btn 
+                    plain 
+                    type="submit"
+                    form="node-create-simple" 
+                    color="success" 
+                    @click="onSaveClick"
+            >Save</v-btn>
         </v-card-actions>
     </v-card>
 </template>

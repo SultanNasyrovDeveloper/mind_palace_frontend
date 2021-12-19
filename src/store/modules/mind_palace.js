@@ -26,25 +26,18 @@ const mutations = {
     setMindPalace: (state, newValue) => state.root = newValue,
     addMindPalaceNode(state, newNode) {
         // TODO: Refactoring.
-        let treeRoot = state.root;
-        let newNodeClean = {
-            id: newNode.id,
-            name: newNode.name,
-            parent: newNode.parent,
-            children: []
-        };
-        let newNodeParentId = newNode.parent;
-
-        if (newNodeParentId === treeRoot.id) {
-            treeRoot.children.push(newNodeClean);
+        let newNodeParentId = _.get(newNode, 'parent');
+        debugger;
+        if (newNodeParentId === state.root.id) {
+            state.root.children.push(newNode);
             return
         }
-        const rootChildrenIds = treeRoot.children.map(child => child.id);
+        const rootChildrenIds = state.root.children.map(child => child.id);
         if (rootChildrenIds.includes(newNodeParentId)) {
-            for (let i = 0; i < treeRoot.children.length; i++) {
-                if (treeRoot.children[i].id === newNodeParentId) {
+            for (let i = 0; i < state.root.children.length; i++) {
+                if (state.root.children[i].id === newNodeParentId) {
                     const parent = state.root.children[i];
-                    parent.children.push(newNodeClean);
+                    parent.children.push(newNode);
                     return;
                 }
             }

@@ -5,7 +5,7 @@
             style="width: 100%;"
     >
         <mind-palace
-                :palaceData="$store.getters.getMindPalace"
+                :root="$store.getters.getMindPalace"
                 @nodeDetailClick="goToNodeDetail"
         ></mind-palace>
     </v-container>

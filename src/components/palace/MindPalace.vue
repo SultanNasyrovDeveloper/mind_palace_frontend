@@ -16,21 +16,21 @@
         <v-row justify="center" class="mb-3">
             <v-col cols="12" sm="6" md="4">
                 <mind-palace-root-card
-                        :node="palaceData"
+                        :node="root"
                         @detailClick="(nodeId) => $emit('nodeDetailClick', nodeId)"
                         @delete="confirmNodeDelete"
                         @createSubnode="openCreateSubnodeForm"
                 ></mind-palace-root-card>
             </v-col>
         </v-row>
-        <draggable v-model="palaceData.children" draggable=".item">
+        <draggable v-model="root.children" draggable=".item">
             <v-row no-gutters>
                 <v-col
                         cols="12"
                         sm="6"
                         md="4"
                         lg="2"
-                        v-for="node in palaceData.children"
+                        v-for="node in root.children"
                         :key="node.id"
                 >
                     <mind-palace-node-card
@@ -83,7 +83,7 @@
             draggable,
             MindPalaceRootCard, MindPalaceNodeCard, NodeCreateSimpleForm, NodeDeleteConfirmationCard
         },
-        props: ['palaceData'],
+        props: ['root'],
         data() {
             return {
                 nodeCreateModal: false,
