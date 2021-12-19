@@ -110,7 +110,8 @@
                     const credentials = {username: this.username, password: this.password};
                     const userSignedUp = await this.$store.dispatch('signup', credentials);
                     if (userSignedUp) {
-                        if (await this.$store.dispatch('login', credentials)) {
+                        const userLoggedIn = await this.$store.dispatch('login', credentials);
+                        if (userLoggedIn) {
                             this.$router.push({name: 'dashboard'});
                         }
                     }

@@ -65,15 +65,14 @@ const routes = [
                 meta: { requiresAuth: true }
             },
             {
-                path: '/*',
+                path: '*',
                 component: () => import ('@/views/NotFoundView')
             }
         ]
-    },
+    }, 
     {
         path: '*',
-        redirect: toUrl => 
-            store.getters.getUserIsLoggedIn? { name: 'dashboard' }: { name: 'index' }
+        component: () => import ('@/views/NotFoundView')
     },
 ];
 
