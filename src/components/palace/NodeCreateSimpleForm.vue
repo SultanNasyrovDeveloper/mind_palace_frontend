@@ -2,7 +2,7 @@
     <v-card>
         <v-card-title>Create node</v-card-title>
         <v-card-text>
-            <v-form id="node-create-simple" @submit="onSaveClick">
+            <v-form id="node-create-simple">
                 <v-text-field autofocus v-model="name" label="Name"></v-text-field>
             </v-form>
         </v-card-text>
@@ -10,8 +10,6 @@
             <v-btn plain @click="$emit('close')">Close</v-btn>
             <v-btn 
                     plain 
-                    type="submit"
-                    form="node-create-simple" 
                     color="success" 
                     @click="onSaveClick"
             >Save</v-btn>

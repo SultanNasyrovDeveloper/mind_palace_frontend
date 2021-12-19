@@ -25,9 +25,7 @@ const getters = {
 const mutations = {
     setMindPalace: (state, newValue) => state.root = newValue,
     addMindPalaceNode(state, newNode) {
-        // TODO: Refactoring.
         let newNodeParentId = _.get(newNode, 'parent');
-        debugger;
         if (newNodeParentId === state.root.id) {
             state.root.children.push(newNode);
             return
@@ -37,14 +35,46 @@ const mutations = {
             for (let i = 0; i < state.root.children.length; i++) {
                 if (state.root.children[i].id === newNodeParentId) {
                     const parent = state.root.children[i];
-                    parent.children.push(newNode);
-                    return;
+                    if (Array.isArray(parent.children)) {
+                        parent.children.push(newNode);
+                    } else {
+                        parent.children = [newNode];
+                    }
                 }
             }
         }
     },
-    updateMindPalaceNode(state, updatedNode) {
-
+    updateMindPalaceNode(state, payload) {
+        let targetPalaceNode;
+        const updatedNode = payload[0];
+        const excludeFields = _.get(payload, '1', [])
+        const updatedNodeId = _.get(updatedNode, 'id');
+        if (updatedNodeId === _.get(state.root, 'id')) {
+            targetPalaceNode = state.root;
+        }
+        if (!targetPalaceNode) {
+            const rootChildrenIds = _.get(state.root, 'children', []).map(child => child.id);
+            if (rootChildrenIds.includes(updatedNodeId)) {
+                targetPalaceNode = _.get(state.root, 'children', []).find(
+                    child => child.id === updatedNodeId
+                )
+            }
+        }
+        if (!targetPalaceNode) {
+            for (const child of _.get(state.root, 'children', [])) {
+                targetPalaceNode = child.children.find(grandchild => 
+                    grandchild.id === updatedNodeId
+                );
+                if (targetPalaceNode) break;
+            }
+        }
+        if (targetPalaceNode) {
+            _.forOwn(updatedNode, (value, key) => {
+                if (!excludeFields.includes(key)) {
+                    targetPalaceNode[key] = value;
+                }
+            })
+        }
     },
     removePalaceNode(state, nodeId) {
         if (nodeId === state.root.id) { state.root = {}; return; }
@@ -99,21 +129,25 @@ const actions = {
         if (getters.getCurrentNodeId === nodeId) return;
         return client.get(`/palace/nodes/${nodeId}/`)
             .then(response => {
-                const nodeDetail = response.data;
-                commit('setCurrentNode', nodeDetail);
+                if (response.status === 200) {
+                    const nodeDetail = response.data;
+                    commit('setCurrentNode', nodeDetail);
+                    commit(
+                        'updateMindPalaceNode', 
+                        [nodeDetail, ['learning_statistics']]
+                    );
+                }
             })
             .catch(error => {
                 console.log(error);
             })
     },
-    async fetchNodeChildren({ commit }, nodeId) {
-
-    },
-    async fetchMindPalaceNodeMediatypes() {},
     async updateNode({ commit, getters }, [nodeId, updateData]) {
         return client.patch(`/palace/nodes/${nodeId}/`, updateData)
             .then(response => {
+                commit('updateMindPalaceNode', [response.data]);
                 if (nodeId == getters.getCurrentNodeId) {
+                    debugger;
                     commit('setCurrentNode', response.data);
                 }
             })

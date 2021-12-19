@@ -9,7 +9,14 @@ const state = {
 
 const getters = {
     getCurrentLearningSession: state => state.learningSession,
-    getCurrentLearningSessionId: state => -_.get(state.learningSession, 'id'),
+    getLearningSessionIsActive: state => {
+        return (
+            _.isEmpty(state.learningSession)?
+            false:
+            _.get(state.learningSession, 'status') === 'active'
+        )
+    },
+    getCurrentLearningSessionId: state => _.get(state.learningSession, 'id'),
     getCurrentLearningNodeId: state => state.learningNodeId,
     getLearningSessions: state => state.sessions,
 };
@@ -83,11 +90,11 @@ const actions = {
             })
     },
     async finishSession({ commit, getters }) {
-        if (!getters.getCurrentLearningSessionId) return;
+        if (!getters.getLearningSessionIsActive) return;
         return apiClient.post(`learning/sessions/${getters.getCurrentLearningSessionId}/finish/`)
             .then(response => {
                 if (response.status === 200) {
-                    commit('setCurrentLearningSession', null);
+                    commit('setCurrentLearningSession', {});
                     commit('setCurrentLearningNodeId', null);
                 }
             })

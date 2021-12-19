@@ -28,7 +28,11 @@ const actions = {
         if (nodeId === getters.getCurrentNodeStatisticsNodeId) return;
         return apiClient.get(`/learning/statistics/node_statistics/?node_id=${nodeId}`)
             .then(response => {
-                commit('setCurrentNodeStatistics', response.data)
+                commit('setCurrentNodeStatistics', response.data);
+                commit(
+                    'updateMindPalaceNode', 
+                    [{id: nodeId, learning_statistics: response.data}]
+                );
             })
             .catch(error => {
                 commit('setSnackbarText', error.toString());

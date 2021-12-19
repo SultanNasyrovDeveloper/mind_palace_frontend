@@ -38,11 +38,16 @@
         },
         watch: {
             async nodeId(newValue) {
-                await this.$store.dispatch('fetchMindPalaceNode', newValue);
+                if (newValue) {
+                    await this.$store.dispatch('fetchMindPalaceNode', newValue);
+                }
+                
             }
         },
         async mounted() {
-            await this.$store.dispatch('fetchMindPalaceNode', this.nodeId);
+            if (this.nodeId) {
+                await this.$store.dispatch('fetchMindPalaceNode', newValue);
+            }
         },
     }
 </script>

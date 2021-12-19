@@ -5,9 +5,10 @@
                 <v-btn
                         icon
                         large
+                        v-if="$store.getters.getMindPalaceRootParentId"
                         :to="{name: 'mypalace', params: {rootId: $store.getters.getMindPalaceRootParentId}}"
                 >
-                    <v-icon v-if="$store.getters.getMindPalaceRootParentId">
+                    <v-icon>
                         mdi-arrow-up-box
                     </v-icon>
                 </v-btn>

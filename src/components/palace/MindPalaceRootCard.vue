@@ -10,19 +10,19 @@
         <v-card-subtitle class="d-flex">
             <div class="mr-5">
                 <v-icon small class="my-1 mr-3">mdi-eye</v-icon>
-                <span class="caption">{{ $store.getters.getCurrentNodeViews }}</span>
+                <span class="caption">{{ node.learning_statistics.views }}</span>
             </div>
             <div class="mr-5">
                 <v-icon small class="my-1 mr-3">mdi-repeat</v-icon>
-                <span class="caption">{{ $store.getters.getCurrentNodeRepetitions }}</span>
+                <span class="caption">{{ node.learning_statistics.repetitions }}</span>
             </div>
             <div class="mr-5">
                 <v-icon small class="my-1 mr-3">mdi-lightbulb</v-icon>
-                <span class="caption">{{ $store.getters.getCurrentNodeEasiness }}</span>
+                <span class="caption">{{ node.learning_statistics.easiness }}</span>
             </div>
             <div class="mr-5">
                 <v-icon small class="my-1 mr-3">mdi-star</v-icon>
-                <span class="caption">{{ $store.getters.getCurrentNodeAcerageRate }}</span>
+                <span class="caption">{{ node.learning_statistics.average_rate }}</span>
             </div>
         </v-card-subtitle>
         <v-card-actions class="d-flex justify-space-between">

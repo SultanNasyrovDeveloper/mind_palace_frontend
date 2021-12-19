@@ -1,7 +1,10 @@
 <template>
     <v-card>
         <v-card-title>
-            <v-container fluid class="ma-0 pa-0 d-flex" v-if="session">
+            <v-container 
+                    fluid 
+                    class="ma-0 pa-0 d-flex" 
+                    v-if="$store.getters.getLearningSessionIsActive">
                 <v-row>
                     <v-col cols="1"><v-icon small color="success">mdi-circle</v-icon></v-col>
                     <v-col cols="7">
@@ -14,15 +17,22 @@
             </v-container>
             <span v-else class="body-1">Learning session not started yet.</span>
         </v-card-title>
-        <v-card-subtitle v-if="session">
+        <v-card-subtitle v-if="$store.getters.getLearningSessionIsActive">
             <span class="caption">Started: {{ started }}</span>
         </v-card-subtitle>
 
         <v-card-actions class="d-flex flex-column">
             <v-container fluid class="d-flex justify-end">
-                <v-btn v-if="!session" @click="startSession">Start learning session</v-btn>
+                <v-btn 
+                        v-if="!$store.getters.getLearningSessionIsActive" 
+                        @click="startSession">
+                    Start learning session
+                </v-btn>
             </v-container>
-            <v-container fluid class="d-flex justify-center" v-if="session">
+            <v-container 
+                    fluid 
+                    class="d-flex justify-center" 
+                    v-if="$store.getters.getLearningSessionIsActive">
                 <v-rating
                         v-model="studyRating"
                         hover
