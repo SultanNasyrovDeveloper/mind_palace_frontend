@@ -23,7 +23,12 @@
                     :types="$store.getters.getEnums.node_body_types"
                     @change="updateData => $emit('change', updateData)"
                 ></node-type>
-                <v-btn :disabled="!hasChanged" color="green darken-2" class="ml-2" elevation="0" @click="save">
+                <v-btn 
+                        :disabled="!hasChanged" 
+                        color="green lighten-2 white--text" 
+                        class="ml-2" 
+                        elevation="0" 
+                        @click="save">
                     Save
                 </v-btn>
             </div>
@@ -116,7 +121,7 @@
         },
         computed: {
             nodeEditorContent() {
-                return this.node.body.hasOwnProperty('code_content') ? this.node.body.code_content : '';
+                return _.get(this.node.body, 'code_content', '')
             }
         },
         methods: {
