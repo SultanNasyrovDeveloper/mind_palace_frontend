@@ -6,13 +6,18 @@
                     <node-breadcrumbs :items="node.ancestors"></node-breadcrumbs>
                     <span class="headline mt-3">{{ node.name }}</span>
                 </v-container>
+
                 <v-container class="d-flex justify-center mt-5">
                     <v-btn class="mr-2"  @click="finishSession">Finish session</v-btn>
-                    <v-btn class="ml-2 success" @click="$router.push({name: 'node.detail', params: {nodeId: nodeId}})">
+                    <v-btn 
+                            class="ml-2 success" 
+                            @click="$router.push({name: 'node.detail', params: {nodeId: nodeId}})"
+                    >
                         See card
                     </v-btn>
             </v-container>
             </v-card-text>
+            
         </v-card>
     </v-container>
 </template>

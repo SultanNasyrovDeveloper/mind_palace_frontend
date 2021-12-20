@@ -70,10 +70,7 @@
                 const nodeId = this.$store.getters.getCurrentNodeId;
                 const data = { root: nodeId, strategy_name: 'sm2' };
                 await this.$store.dispatch('startLearningSession', data);
-                await this.$store.dispatch('fetchCurrentLearningNodeId');
-                this.$router.push(
-                    { name: 'learning.node', params: { nodeId: this.$store.getters.getCurrentLearningNodeId } }
-                );
+                this.$router.push({ name: 'learning.node', params: { nodeId: nodeId } });
             },
             async studyNode() {
                 const nodeId = this.$store.getters.getCurrentNodeId;
