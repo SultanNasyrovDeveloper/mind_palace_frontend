@@ -39,7 +39,7 @@
                 </v-card-text>
 
                 <v-card-actions>
-                    <node-statistics :statisticsId="node.learning_statistics"></node-statistics>
+                    <node-statistics :statistics="node.learning_statistics"></node-statistics>
                 </v-card-actions>
             </v-card>
         </template><!--/NODE GENERAL INFORMATION-->

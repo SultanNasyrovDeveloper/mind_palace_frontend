@@ -17,7 +17,7 @@
                     </v-btn>
             </v-container>
             </v-card-text>
-            
+
         </v-card>
     </v-container>
 </template>
@@ -51,7 +51,7 @@
         },
         async mounted() {
             if (this.nodeId) {
-                await this.$store.dispatch('fetchMindPalaceNode', newValue);
+                await this.$store.dispatch('fetchMindPalaceNode', this.nodeId);
             }
         },
     }
