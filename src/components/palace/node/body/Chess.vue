@@ -12,7 +12,7 @@
                     @change="updateData => $emit('change', updateData)"
                 ></node-type>
             </div>
-            <v-btn :disabled="!hasChanged" @click="setNodePosition" class="success">
+            <v-btn :disabled="!hasChanged" @click="setNodePosition" class="green lighten-2 white--text">
                 Save
             </v-btn>
         </template>

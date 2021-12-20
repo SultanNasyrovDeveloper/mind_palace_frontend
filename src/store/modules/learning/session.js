@@ -44,6 +44,7 @@ const actions = {
             .then(response => {
                 if (response.data) {
                     commit('setCurrentLearningSession', response.data);
+                    commit('setCurrentLearningNodeId', response.data.current)
                 }
             })
             .catch(error => {
@@ -55,6 +56,7 @@ const actions = {
         return apiClient.post('learning/sessions/start/', sessionData)
             .then(response => {
                 commit('setCurrentLearningSession', response.data);
+                commit('setCurrentLearningNodeId', response.data.current)
             })
             .catch(error => {
                 commit('setSnackbarText', error.toString());

@@ -12,7 +12,7 @@
                 <v-btn
                         :loading="loading"
                         :dark="hasChanged"
-                        color="green darken-2"
+                        color="green lighten-2 white--text"
                         class="ml-2"
                         elevation="0"
                         :disabled="!hasChanged"
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+    import _ from 'lodash';
     import { quillEditor } from 'vue-quill-editor'
 
     import BaseNodeBody from '@/components/palace/node/body/Base'
@@ -58,8 +59,7 @@
         },
         computed: {
             nodeEditorContent() {
-                if (this.node.body.hasOwnProperty('text_content')) return this.node.body.text_content;
-                return ''
+                return _.get(this.node.body, 'text_content', '')
             },
             editorContainerHeight() {
                 return this.$refs.textEditor.parentNode.offsetHeight
