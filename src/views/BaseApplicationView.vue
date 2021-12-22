@@ -8,7 +8,7 @@
             <user-navbar-menu></user-navbar-menu>
         </v-app-bar>
 
-        <v-navigation-drawer app clipped mini-variant>
+        <v-navigation-drawer app clipped mini-variant mobile-breakpoint="0">
             <v-list>
                 <v-list-item :to="{name: 'dashboard'}">
                     <v-list-item-icon><v-icon>mdi-view-dashboard-variant</v-icon></v-list-item-icon>
