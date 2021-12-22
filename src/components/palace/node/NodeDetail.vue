@@ -44,11 +44,6 @@
             </v-card>
         </template><!--/NODE GENERAL INFORMATION-->
 
-        <!--NODE LEARNING WIDGET-->
-        <template v-slot:learning>
-            <node-detail-learning></node-detail-learning>
-        </template><!--/NODE LEARNING WIDGET-->
-
         <!--NODE MEDIA-->
         <template v-slot:media>
             <node-media></node-media>
@@ -73,14 +68,13 @@
     import NodeStatistics from '@/components/learning/NodeLearningStatistics'
     import NodeMedia from '@/components/palace/node/media/MindPalaceNodeMedia'
 
-    import NodeDetailLearning from '@/components/learning/NodeDetailLearning'
 
     export default {
         name: "NodeDetail",
         props: ['node'],
         components: {
             BaseNodeDetail, NodeHeader, NodeBodyFactory, NodeName, NodeDescription, NodeTags,
-            NodeDetailLearning, NodeStatistics, NodeMedia
+            NodeStatistics, NodeMedia
         }
     }
 </script>
