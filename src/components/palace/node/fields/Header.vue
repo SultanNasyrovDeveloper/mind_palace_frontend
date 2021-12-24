@@ -3,7 +3,7 @@
         <v-card-title>
             <v-container fluid class="ma-0 pa-0">
                 <v-row>
-                    <v-col cols="8" class="d-flex align-center">
+                    <v-col cols="6" class="d-flex align-center">
                         <v-btn
                                 plain
                                 icon
@@ -15,10 +15,8 @@
                         </v-btn>
                         <node-breadcrumbs :items="node.ancestors"></node-breadcrumbs>
                     </v-col>
-                    <v-col cols="4" class="d-flex justify-end align-center">
-                        <v-btn icon plain>
-                            <v-icon>mdi-cog</v-icon>
-                        </v-btn>
+                    <v-col cols="6" class="d-flex justify-end align-center">
+                        <node-detail-learning></node-detail-learning>
                     </v-col>
                 </v-row>
             </v-container>
@@ -29,12 +27,12 @@
 
 <script>
     import NodeBreadcrumbs from '@/components/palace/node/fields/Breadcrumbs';
-
+    import NodeDetailLearning from '@/components/learning/NodeDetailLearning'
 
     export default {
         name: "Header",
         props: ['node'],
-        components: { NodeBreadcrumbs, },
+        components: { NodeBreadcrumbs, NodeDetailLearning },
         methods: {
             goBackToMindPalace() {
                 if (this.$store.getters.getMindPalaceRootId) {

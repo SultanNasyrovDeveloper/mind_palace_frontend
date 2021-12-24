@@ -64,7 +64,10 @@ const actions = {
             })
     },
     async fetchSessionList({ commit }, [page, count, query]) {
-        const response = await apiClient.get(`/learning/sessions/?offset=${page * count}&limit=${count}`, query);
+        const response = await apiClient.get(
+            `/learning/sessions/?offset=${page * count}&limit=${count}`, 
+            query
+        );
         if (response.status === 200) {
             commit('setLearningSessions', response.data.results);
             return response.data;
