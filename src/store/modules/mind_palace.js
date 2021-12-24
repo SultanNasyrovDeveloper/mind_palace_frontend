@@ -25,6 +25,7 @@ const getters = {
 const mutations = {
     setMindPalace: (state, newValue) => state.root = newValue,
     addMindPalaceNode(state, newNode) {
+        debugger;
         let newNodeParentId = _.get(newNode, 'parent');
         if (newNodeParentId === state.root.id) {
             state.root.children.push(newNode);

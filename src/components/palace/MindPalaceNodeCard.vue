@@ -2,7 +2,7 @@
     <v-card class="ma-1" max-height="350">
         <v-card-title>
             <span
-                    class="body-2"
+                    class="body-2 palace-node-name"
                     style="cursor: pointer"
                     @click="$router.push({name: 'mypalace', params: { rootId: node.id }})"
             >{{ nameSized }}</span>
@@ -51,7 +51,7 @@
                     <v-row>
                         <v-col cols="8" class="ma-0 py-0">
                             <span
-                                    class="caption"
+                                    class="caption palace-node-name"
                                     style="cursor: pointer"
                                     @click="$router.push({name: 'mypalace', params: {rootId: subnode.id}})"
                             >{{ subnode.name }}</span>
@@ -99,5 +99,7 @@
 </script>
 
 <style scoped>
-
+.palace-node-name:hover {
+    color: #4CAF50 !important;
+}
 </style>
