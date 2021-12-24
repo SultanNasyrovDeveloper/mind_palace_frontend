@@ -100,6 +100,6 @@
 
 <style scoped>
 .palace-node-name:hover {
-    color: #4CAF50 !important;
+    font-weight: 500 !important;
 }
 </style>

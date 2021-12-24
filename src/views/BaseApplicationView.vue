@@ -1,14 +1,14 @@
 <template>
     <v-container fluid class="ma-0 pa-0 fill-height grey lighten-4">
-        <v-app-bar app clipped-left dense>
+        <v-app-bar app clipped-left class="grey lighten-3" elevation="1">
             <v-toolbar-title>
-                <router-link to="/">Palaces of Mind</router-link>
+                <router-link to="/">Mindase</router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <user-navbar-menu></user-navbar-menu>
         </v-app-bar>
 
-        <v-navigation-drawer app clipped mini-variant mobile-breakpoint="0">
+        <v-navigation-drawer app clipped mini-variant mobile-breakpoint="0" class="grey lighten-3">
             <v-list>
                 <v-list-item :to="{name: 'dashboard'}">
                     <v-list-item-icon><v-icon>mdi-view-dashboard-variant</v-icon></v-list-item-icon>
