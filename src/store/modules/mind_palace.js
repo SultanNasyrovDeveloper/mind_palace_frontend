@@ -15,6 +15,7 @@ const getters = {
 
     getCurrentNode: state => state.node,
     getCurrentNodeId: state => _.get(state.node, 'id', null),
+    getCurrentNodeName: state => _.get(state.node, 'name', ''),
     getCurrentNodeBody: state => _.get(state.node, 'body', {}),
     getCurrentNodeType: state => _.get(state.node, 'body_type'),
     getCurrentNodeMedia: state => _.get(state.node, 'media', []),

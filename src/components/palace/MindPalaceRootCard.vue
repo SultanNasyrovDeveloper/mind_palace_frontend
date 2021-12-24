@@ -28,7 +28,7 @@
         <v-card-actions class="d-flex justify-space-between">
             <v-btn
                     plain
-                    color="green lighten-1"
+                    color="teal darken-2"
                     @click="$emit('createSubnode', node.id)"
             >Create subnode</v-btn>
             <v-btn

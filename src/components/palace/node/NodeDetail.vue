@@ -25,6 +25,9 @@
                                 <v-icon @click="$router.push({name: 'mypalace', params: {rootId: node.id}})">
                                     mdi-sitemap
                                 </v-icon>
+                                <v-icon class="ml-3" @click="() => {}">
+                                    mdi-cog
+                                </v-icon>
                             </v-col>
                         </v-row>
                     </v-container>
@@ -36,11 +39,8 @@
                             :value="node.title"
                             @change="updateData => $emit('change', updateData)"
                     ></node-description>
-                </v-card-text>
-
-                <v-card-actions>
                     <node-statistics :statistics="node.learning_statistics"></node-statistics>
-                </v-card-actions>
+                </v-card-text>
             </v-card>
         </template><!--/NODE GENERAL INFORMATION-->
 

@@ -25,7 +25,7 @@
                 ></node-type>
                 <v-btn 
                         :disabled="!hasChanged" 
-                        color="green lighten-2 white--text" 
+                        color="teal lighten-3 white--text" 
                         class="ml-2" 
                         elevation="0" 
                         @click="save">

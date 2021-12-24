@@ -34,7 +34,7 @@
                 <v-btn
                         x-small plain
                         class="ml-0 pl-0"
-                        color="green lighten-1"
+                        color="teal darken-2"
                         @click="$emit('createSubnode', node.id)"
                 >Create subnode</v-btn>
                 <v-btn x-small plain color="red lighten-1" @click="$emit('deleteClick', node)">Delete</v-btn>

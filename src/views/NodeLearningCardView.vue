@@ -2,22 +2,29 @@
     <v-container fluid class="d-flex justify-center">
         <v-card  min-width="40vw" style="min-height: 30vh">
             <v-card-text class="fill-height d-flex flex-column justify-center">
+
                 <v-container fluid class="d-flex flex-column align-center">
                     <node-breadcrumbs :items="node.ancestors"></node-breadcrumbs>
                     <span class="headline mt-3">{{ node.name }}</span>
                 </v-container>
 
                 <v-container class="d-flex justify-center mt-5">
-                    <v-btn class="mr-2"  @click="finishSession">Finish session</v-btn>
                     <v-btn 
-                            class="ml-2 success" 
+                            class="mr-2"  
+                            @click="finishSession"
+                            elevation="1">
+                        Finish session
+                    </v-btn>
+
+                    <v-btn 
+                            class="ml-2 teal lighten-1 white--text" 
                             @click="$router.push({name: 'node.detail', params: {nodeId: nodeId}})"
                     >
                         See card
                     </v-btn>
             </v-container>
+            
             </v-card-text>
-
         </v-card>
     </v-container>
 </template>

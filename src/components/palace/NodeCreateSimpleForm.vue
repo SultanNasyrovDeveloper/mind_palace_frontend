@@ -10,7 +10,7 @@
             <v-btn plain @click="$emit('close')">Close</v-btn>
             <v-btn 
                     plain 
-                    color="success" 
+                    class="teal lighten-2 white--text"
                     @click="onSaveClick"
             >Save</v-btn>
         </v-card-actions>

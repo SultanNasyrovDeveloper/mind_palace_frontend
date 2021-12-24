@@ -1,5 +1,18 @@
 <template>
-    <v-container fluid class="pt-0">
+    <v-container fluid class="pa-0 mt-7">
+        <v-container fluid class="pa-0 ma-0">
+            <h3>Learning statistics</h3>
+        </v-container>
+        <div class="d-flex align-center">
+            <v-icon small class="mr-2">mdi-calendar</v-icon>
+            <span class="caption">
+                Next repetition: {{ 
+                    $store.getters.getCurrentlearningSession
+                    ? 'Now'
+                    : nextRepetitionBuitified 
+                }}
+            </span>
+        </div>
         <v-row class="mt-1">
             <v-col cols="3" class="d-flex flex-column align-center">
                 <v-icon class="my-1">mdi-eye</v-icon>
@@ -22,16 +35,6 @@
                 <span class="caption">Average rate</span>
             </v-col>
         </v-row>
-        <div class="d-flex align-center mt-10">
-            <v-icon small class="mr-2">mdi-calendar</v-icon>
-            <span class="body-2">
-                Next repetition: {{ 
-                    $store.getters.getCurrentlearningSession
-                    ? 'Now'
-                    : nextRepetitionBuitified 
-                }}
-            </span>
-        </div>
     </v-container>
 </template>
 
@@ -43,11 +46,11 @@
         props: ['statistics'],
         computed: {
             nextRepetitionBuitified() {
-                if (this.statistics.hasOwnProperty('next_repetition')) {
-                    const date = new Date(this.statistics.next_repetition);
-                    return date.toString()
-                }
-                return 'Not defined.'
+                return (
+                    _.get(this.statistics, 'next_repetition', null)?
+                    new Date(_.get(this.statistics, 'next_repetition')).toString():
+                    'Not defined.'
+                )
             }
         }
     }
