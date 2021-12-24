@@ -2,7 +2,9 @@
     <v-container fluid class="ma-0 pa-0 fill-height grey lighten-4">
         <v-app-bar app clipped-left class="grey lighten-3" elevation="1">
             <v-toolbar-title>
-                <router-link to="/">Mindase</router-link>
+                <router-link :to="{name: 'dashboard'}" class="text-decoration-none">
+                    <span class="h6 font-weight-black green--text text--darken-1">MINDASE</span>
+                </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <user-navbar-menu></user-navbar-menu>
