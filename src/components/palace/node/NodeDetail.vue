@@ -21,7 +21,6 @@
                                 <node-name :value="node.name" @change="updateData => $emit('change', updateData)"></node-name>
                             </v-col>
                             <v-col cols="4" class="d-flex justify-end mx-0 pa-0">
-
                                 <v-icon @click="$router.push({name: 'mypalace', params: {rootId: node.id}})">
                                     mdi-sitemap
                                 </v-icon>
@@ -31,7 +30,6 @@
                             </v-col>
                         </v-row>
                     </v-container>
-
                 </v-card-title>
                 <v-card-subtitle>
                     <node-statistics 
@@ -39,7 +37,7 @@
                     ></node-statistics>
                 </v-card-subtitle>
 
-                <v-card-text class="pt-4">
+                <v-card-text>
                     <node-description
                             :value="node.title"
                             @change="updateData => $emit('change', updateData)"
