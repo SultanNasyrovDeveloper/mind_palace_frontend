@@ -8,7 +8,7 @@
         </v-card-title>
 
         <v-card-text>
-            <v-container fluid class="pa-0">
+            <v-container fluid class="pa-0 ml-2">
                 <v-row v-if="$store.getters.getCurrentNodeMedia.length !== 0">
                     <v-col 
                             v-for="media in $store.getters.getCurrentNodeMedia" 

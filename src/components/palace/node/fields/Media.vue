@@ -1,6 +1,5 @@
 <template>
     <v-card>
-
         <v-card-title>
             <span>Media</span>    
             <v-spacer></v-spacer>
