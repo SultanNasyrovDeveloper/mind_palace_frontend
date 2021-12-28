@@ -62,9 +62,10 @@
                 );
                 if (next) {
                     this.$router.push({name: 'learning.node', params: {nodeId: next}});
-                    return
+                    return;
                 }
-                this.$router.push({name: 'learning.session.finished'})
+                await this.$store.dispatch('finishSession');
+                this.$router.push({name: 'learning.session.finished'});
             }
         }
     }

@@ -10,7 +10,9 @@
             >
                 <span 
                         class="body-2 grey--text text--darken-1 "
-                >{{ item.text }}</span>
+                >
+                        {{ item.text.length < 35? item.text: item.text.slice(0, 32) + '...'  }}
+                </span>
             </router-link>
 
         </template>

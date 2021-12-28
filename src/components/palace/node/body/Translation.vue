@@ -4,11 +4,16 @@
         <template v-slot:options>
             <div>
                 <node-type
-                    :value="node.type"
-                    :types="$store.getters.getEnums.neuron_types"
+                    :value="node.body_type"
+                    :types="$store.getters.getEnums.node_body_types"
                     @change="updateData => $emit('change', updateData)"
                 ></node-type>
-                <v-btn dark color="teal" class="ml-2" elevation="0">Save</v-btn>
+                <v-btn 
+                        small 
+                        color="teal lighten-3" 
+                        class="ml-2 white--text" 
+                        elevation="0"
+                >Save</v-btn>
             </div>
         </template>
         <template v-slot:editor>

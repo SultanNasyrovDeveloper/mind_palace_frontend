@@ -25,7 +25,7 @@
                                     mdi-sitemap
                                 </v-icon>
                                 <v-icon class="ml-3" @click="() => {}">
-                                    mdi-cog
+                                    mdi-dots-vertical
                                 </v-icon>
                             </v-col>
                         </v-row>

@@ -5,8 +5,7 @@
               <v-card>
                 <v-card-title>Learning session complete.</v-card-title>
                 <v-card-actions>
-                    <v-btn>Finish</v-btn>
-                    <v-btn>Repaete trouble nodes</v-btn>
+                    <v-btn :to="backTo">Back</v-btn>
                 </v-card-actions>
               </v-card>
             </v-col>
@@ -16,14 +15,18 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 
 export default {
     name: "LearningSessionFinishView",
     computed: {
-        ...mapGetters({sessionId: 'getCurrentLearningSessionId'})
-    },
-
+        backTo() {
+            const targetNodeId = (
+                this.$store.getters.getMindPalaceRootId ||
+                this.$store.getters.this.$store.getters.getMindPalaceRootId
+            );
+            return {name: 'mypalace', params: {rootId: targetNodeId}};
+        }
+    }
 }
 </script>
 
