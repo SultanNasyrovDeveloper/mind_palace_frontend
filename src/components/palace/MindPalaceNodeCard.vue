@@ -5,7 +5,7 @@
                     class="body-2 palace-node-name"
                     style="cursor: pointer"
                     @click="$router.push({name: 'mypalace', params: { rootId: node.id }})"
-            >{{ nameSized }}</span>
+            >{{ nodeNameSized }}</span>
             <v-spacer></v-spacer>
             <v-btn icon @click="$emit('detailClick', node.id)">
                 <v-icon small>mdi-card-text</v-icon>
@@ -54,7 +54,9 @@
                                     class="caption palace-node-name"
                                     style="cursor: pointer"
                                     @click="$router.push({name: 'mypalace', params: {rootId: subnode.id}})"
-                            >{{ subnode.name }}</span>
+                            >
+                                    {{ subnode.name.length < 40? subnode.name: subnode.name.slice(0, 37) + '...' }}
+                            </span>
                         </v-col>
                         <v-col cols="4" class="ma-0 py-0 d-flex justify-end">
                             <v-icon
@@ -89,8 +91,8 @@
         name: "MindPalaceNodeCard",
         props: ['node'],
         computed: {
-            nameSized() {
-                const length = 20;
+            nodeNameSized() {
+                const length = 45;
                 if (this.node.name && this.node.name.length > length) {
                     return this.node.name.slice(0, length) + '...'
                 }

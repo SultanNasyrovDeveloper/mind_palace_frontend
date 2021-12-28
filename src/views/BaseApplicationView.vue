@@ -4,7 +4,7 @@
             <v-toolbar-title>
                 <router-link :to="{name: 'dashboard'}" class="text-decoration-none">
                     <span class="h6 font-weight-black teal--text text--lighten-1">
-                        MINDASE:alfa
+                        MINDASE:beta
                     </span>
                 </router-link>
             </v-toolbar-title>

@@ -16,8 +16,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
     name: "LearningSessionFinishView",
+    computed: {
+        ...mapGetters({sessionId: 'getCurrentLearningSessionId'})
+    },
 
 }
 </script>

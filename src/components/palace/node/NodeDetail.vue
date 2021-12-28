@@ -13,14 +13,14 @@
 
         <!--NODE GENERAL INFORMATION-->
         <template v-slot:general>
-            <v-card class="py-3">
+            <v-card class="py-2">
                 <v-card-title>
                     <v-container fluid>
                         <v-row>
                             <v-col cols="8" class="mx-0 pa-0">
                                 <node-name :value="node.name" @change="updateData => $emit('change', updateData)"></node-name>
                             </v-col>
-                            <v-col cols="4" class="d-flex justify-end mx-0 pa-0">
+                            <v-col cols="4" class="d-flex align-start justify-end mx-0 pa-0">
                                 <v-icon @click="$router.push({name: 'mypalace', params: {rootId: node.id}})">
                                     mdi-sitemap
                                 </v-icon>
