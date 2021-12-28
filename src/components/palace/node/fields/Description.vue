@@ -1,12 +1,22 @@
 <template>
     <v-container fluid class="ma-0 pa-0">
+        <div class="mb-2 d-flex align-center">
+            <h3>Description</h3>
+            <v-btn 
+                    small 
+                    plain 
+                    class="ml-3" 
+                    eleation="1" 
+                    @click="toggleIsEdited">
+                {{ isEdited? 'Close': 'Change' }}</v-btn>
+        </div>
         <span
                 v-if="!isEdited"
                 style="cursor: pointer"
                 @click="isEdited = true"
-        >{{ value || 'Description' }}</span>
+        >{{ value || `${$store.getters.getCurrentNodeName} description` }}</span>
         <v-row v-else>
-            <v-col cols="12" class="pb-0">
+            <v-col cols="12" class="pb-0 mt-2">
                 <v-textarea
                         autofocus
                         filled
@@ -14,6 +24,7 @@
                         clearable
                         dense
                         rows="2"
+                        color="teal lighten-2"
                         v-model="inputValue"
                         label="Node description"
                         @input="checkIfChanged"
@@ -21,13 +32,21 @@
             </v-col>
             <v-col cols="12" class="px-0 pt-0">
                 <v-btn plain small @click="isEdited = false">Close</v-btn>
-                <v-btn plain small :disabled="!hasChanged" color="success" @click="save">Save</v-btn>
+                <v-btn 
+                        small 
+                        plain
+                        :disabled="!hasChanged" 
+                        color="teal"
+                        @click="save">
+                    Save</v-btn>
             </v-col>
         </v-row>
     </v-container>
 </template>
 
 <script>
+    import _ from 'lodash';
+
     export default {
         name: "NodeDescription",
         props: ['value'],
@@ -45,6 +64,13 @@
                     return
                 }
                 this.hasChanged = true;
+            },
+            toggleIsEdited() {
+                if (this.isEdited) {
+                    this.isEdited = false;
+                    return
+                }
+                this.isEdited = true;
             },
             save() {
                 this.checkIfChanged();

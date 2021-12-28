@@ -15,6 +15,7 @@ const getters = {
 
     getCurrentNode: state => state.node,
     getCurrentNodeId: state => _.get(state.node, 'id', null),
+    getCurrentNodeName: state => _.get(state.node, 'name', ''),
     getCurrentNodeBody: state => _.get(state.node, 'body', {}),
     getCurrentNodeType: state => _.get(state.node, 'body_type'),
     getCurrentNodeMedia: state => _.get(state.node, 'media', []),
@@ -25,7 +26,6 @@ const getters = {
 const mutations = {
     setMindPalace: (state, newValue) => state.root = newValue,
     addMindPalaceNode(state, newNode) {
-        debugger;
         let newNodeParentId = _.get(newNode, 'parent');
         if (newNodeParentId === state.root.id) {
             state.root.children.push(newNode);

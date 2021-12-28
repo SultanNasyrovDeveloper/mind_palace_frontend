@@ -2,14 +2,14 @@
     <v-card>
 
         <v-card-title>
-            NodeMedia
+            Node Media
             <v-spacer></v-spacer>
             <media-create-modal :nodeId="$store.getters.getCurrentNodeId"></media-create-modal>
         </v-card-title>
 
         <v-card-text>
-            <v-container fluid>
-                <v-row>
+            <v-container fluid class="pa-0 ml-2">
+                <v-row v-if="$store.getters.getCurrentNodeMedia.length !== 0">
                     <v-col 
                             v-for="media in $store.getters.getCurrentNodeMedia" 
                             :key="media.id" 
@@ -27,7 +27,7 @@
                         </v-card>
                     </v-col>
                 </v-row>
-                <span v-if="$store.getters.getCurrentNodeMedia.length === 0">No media objects...</span>
+                <span v-else>No media objects...</span>
             </v-container>
         </v-card-text>
         <v-dialog v-model="showMediaDetailModal" width="85vw">

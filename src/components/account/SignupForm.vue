@@ -43,9 +43,8 @@
                 <v-btn @click="reset" class="px-5">Reset</v-btn>
                 <v-btn 
                         @click="signup" 
-                        color="success" 
                         type="submit" 
-                        class="px-5"
+                        class="px-5 teal white--text"
                 >sign up</v-btn>
             </v-card-actions>
         </v-card>

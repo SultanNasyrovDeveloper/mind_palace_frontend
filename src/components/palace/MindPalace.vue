@@ -30,7 +30,8 @@
                         cols="12"
                         sm="6"
                         md="4"
-                        lg="2"
+                        lg="3"
+                        xl="2"
                         v-for="node in root.children"
                         :key="node.id"
                 >

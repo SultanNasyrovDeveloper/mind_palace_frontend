@@ -1,8 +1,7 @@
 <template>
     <v-card>
-
         <v-card-title>
-            NodeMedia
+            <span>Media</span>    
             <v-spacer></v-spacer>
             <v-btn small plain @click="showAddMediaModal = true">ADD</v-btn>
         </v-card-title>
@@ -73,11 +72,6 @@
                nodeMediaTypes: NODE_MEDIA_TYPES,
                createMediaType: NODE_MEDIA_TYPES.notSet
            }
-        },
-        methods: {
-        },
-        async mount() {
-            
         }
     }
 </script>

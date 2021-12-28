@@ -59,6 +59,14 @@ const routes = [
                 meta: { requiresAuth: true }
             },
             {
+                path: 'learning/session/finished',
+                component: () => import ('@/views/LearningSessionFinishView'),
+                props: true,
+                name: 'learning.session.finished',
+                meta: { requiresAuth: true }
+
+            },
+            {
                 path: '/profile',
                 component: () => import ('@/views/UserProfileView'),
                 name: 'profile',

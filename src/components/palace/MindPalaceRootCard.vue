@@ -1,11 +1,21 @@
 <template>
     <v-card>
         <v-card-title>
-            <span>{{ node.name }}</span>
-            <v-spacer></v-spacer>
-            <v-btn icon @click="$emit('detailClick', node.id)">
-                <v-icon>mdi-card-text</v-icon>
-            </v-btn>
+            <v-container fluid class="ma-0 pa-0">
+                <v-row>
+                    <v-col cols="10">
+                        <span>
+                                {{ node.name.length < 90? node.name: node.name.slice(0, 87) + '...' }}
+                        </span>
+
+                    </v-col>
+                    <v-col cols="2" class="d-flex justify-end">
+                        <v-btn icon @click="$emit('detailClick', node.id)">
+                            <v-icon>mdi-card-text</v-icon>
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-container>
         </v-card-title>
         <v-card-subtitle class="d-flex">
             <div class="mr-5">
@@ -28,7 +38,7 @@
         <v-card-actions class="d-flex justify-space-between">
             <v-btn
                     plain
-                    color="green lighten-1"
+                    color="teal darken-2"
                     @click="$emit('createSubnode', node.id)"
             >Create subnode</v-btn>
             <v-btn

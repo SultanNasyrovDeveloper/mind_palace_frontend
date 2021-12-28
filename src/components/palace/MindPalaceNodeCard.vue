@@ -5,7 +5,7 @@
                     class="body-2 palace-node-name"
                     style="cursor: pointer"
                     @click="$router.push({name: 'mypalace', params: { rootId: node.id }})"
-            >{{ nameSized }}</span>
+            >{{ nodeNameSized }}</span>
             <v-spacer></v-spacer>
             <v-btn icon @click="$emit('detailClick', node.id)">
                 <v-icon small>mdi-card-text</v-icon>
@@ -34,7 +34,7 @@
                 <v-btn
                         x-small plain
                         class="ml-0 pl-0"
-                        color="green lighten-1"
+                        color="teal darken-2"
                         @click="$emit('createSubnode', node.id)"
                 >Create subnode</v-btn>
                 <v-btn x-small plain color="red lighten-1" @click="$emit('deleteClick', node)">Delete</v-btn>
@@ -54,11 +54,14 @@
                                     class="caption palace-node-name"
                                     style="cursor: pointer"
                                     @click="$router.push({name: 'mypalace', params: {rootId: subnode.id}})"
-                            >{{ subnode.name }}</span>
+                            >
+                                    {{ subnode.name.length < 40? subnode.name: subnode.name.slice(0, 37) + '...' }}
+                            </span>
                         </v-col>
-                        <v-col cols="4" class="ma-0 py-0 d-flex justify-space-around">
+                        <v-col cols="4" class="ma-0 py-0 d-flex justify-end">
                             <v-icon
                                     x-small
+                                    class="mx-2"
                                     color="red lighten-2"
                                     style="cursor: pointer;"
                                     @click="$emit('deleteClick', subnode)"
@@ -67,6 +70,7 @@
                             </v-icon>
                             <v-icon
                                     x-small
+                                    class="ml-2"
                                     style="cursor: pointer"
                                     @click="$emit('detailClick', subnode.id)"
                             >
@@ -87,8 +91,8 @@
         name: "MindPalaceNodeCard",
         props: ['node'],
         computed: {
-            nameSized() {
-                const length = 20;
+            nodeNameSized() {
+                const length = 45;
                 if (this.node.name && this.node.name.length > length) {
                     return this.node.name.slice(0, length) + '...'
                 }

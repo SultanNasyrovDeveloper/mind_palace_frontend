@@ -13,23 +13,29 @@
 
         <!--NODE GENERAL INFORMATION-->
         <template v-slot:general>
-            <v-card>
+            <v-card class="py-2">
                 <v-card-title>
                     <v-container fluid>
                         <v-row>
                             <v-col cols="8" class="mx-0 pa-0">
                                 <node-name :value="node.name" @change="updateData => $emit('change', updateData)"></node-name>
                             </v-col>
-                            <v-col cols="4" class="d-flex justify-end mx-0 pa-0">
-
+                            <v-col cols="4" class="d-flex align-start justify-end mx-0 pa-0">
                                 <v-icon @click="$router.push({name: 'mypalace', params: {rootId: node.id}})">
                                     mdi-sitemap
+                                </v-icon>
+                                <v-icon class="ml-3" @click="() => {}">
+                                    mdi-dots-vertical
                                 </v-icon>
                             </v-col>
                         </v-row>
                     </v-container>
-
                 </v-card-title>
+                <v-card-subtitle>
+                    <node-statistics 
+                        :statistics="node.learning_statistics"
+                    ></node-statistics>
+                </v-card-subtitle>
 
                 <v-card-text>
                     <node-description
@@ -37,10 +43,6 @@
                             @change="updateData => $emit('change', updateData)"
                     ></node-description>
                 </v-card-text>
-
-                <v-card-actions>
-                    <node-statistics :statistics="node.learning_statistics"></node-statistics>
-                </v-card-actions>
             </v-card>
         </template><!--/NODE GENERAL INFORMATION-->
 
@@ -50,11 +52,7 @@
         </template><!--/NODE MEDIA-->
 
         <!--NODE CONNECTIONS TABLE-->
-        <template v-slot:connections>
-            <v-card>
-                <v-card-title>Connections table</v-card-title>
-            </v-card>
-        </template><!--/NODE CONNECTIONS TABLE-->
+        <template v-slot:connections></template><!--/NODE CONNECTIONS TABLE-->
     </base-node-detail>
 </template>
 

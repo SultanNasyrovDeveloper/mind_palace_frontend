@@ -7,7 +7,8 @@
         >Finish</v-btn>
         <v-btn 
                 v-if="$store.getters.getLearningSessionIsActive" 
-                class="ml-3 green darken-1 white--text">
+                class="ml-3 teal lighten-1 white--text"
+                elevation="1">
                 
             <span class="h4">Submit</span>
             <v-rating
@@ -23,8 +24,9 @@
         </v-btn>
         <v-btn 
                 v-if="!$store.getters.getLearningSessionIsActive"
-                class="green darken-1 white--text"
-                @click="startSession">
+                class="teal lighten-1 white--text"
+                @click="startSession"
+                elevation="1">
         Learn</v-btn>
     </div>
 </template>
@@ -58,7 +60,12 @@
                     'studyNode', 
                     [this.$store.getters.getCurrentNodeId, this.studyRating * 2]
                 );
-                this.$router.push({name: 'learning.node', params: {nodeId: next}})
+                if (next) {
+                    this.$router.push({name: 'learning.node', params: {nodeId: next}});
+                    return;
+                }
+                await this.$store.dispatch('finishSession');
+                this.$router.push({name: 'learning.session.finished'});
             }
         }
     }

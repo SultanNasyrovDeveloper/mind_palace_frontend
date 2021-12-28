@@ -10,11 +10,12 @@
                     @change="updateData => $emit('change', updateData)"
                 ></node-type>
                 <v-btn
-                        :loading="loading"
-                        :dark="hasChanged"
-                        color="green lighten-2 white--text"
+                        small
+                        color="teal lighten-3 white--text"
                         class="ml-2"
                         elevation="0"
+                        :loading="loading"
+                        :dark="hasChanged"
                         :disabled="!hasChanged"
                         @click="save"
                 >Save</v-btn>

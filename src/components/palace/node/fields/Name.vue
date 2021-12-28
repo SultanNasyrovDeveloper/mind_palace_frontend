@@ -1,6 +1,6 @@
 <template>
     <v-container fluid class="ma-0 pa-0">
-        <span v-if="!isEdited" style="cursor: pointer" @click="isEdited = true">{{ value }}</span>
+        <h3 v-if="!isEdited" style="cursor: pointer" @click="isEdited = true">{{ value }}</h3>
         <v-row v-else>
             <v-col cols="10" class="my-0 py-0">
                 <v-text-field
