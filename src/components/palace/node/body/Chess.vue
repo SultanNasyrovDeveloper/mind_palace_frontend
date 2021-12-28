@@ -13,8 +13,9 @@
                 ></node-type>
             </div>
             <v-btn 
-                    :disabled="!hasChanged" 
+                    small
                     class="teal lighten-3 white--text"
+                    :disabled="!hasChanged" 
                     @click="setNodePosition">
                 Save
             </v-btn>

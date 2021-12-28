@@ -13,7 +13,7 @@
 
         <!--NODE GENERAL INFORMATION-->
         <template v-slot:general>
-            <v-card>
+            <v-card class="py-3">
                 <v-card-title>
                     <v-container fluid>
                         <v-row>
@@ -33,13 +33,17 @@
                     </v-container>
 
                 </v-card-title>
+                <v-card-subtitle>
+                    <node-statistics 
+                        :statistics="node.learning_statistics"
+                    ></node-statistics>
+                </v-card-subtitle>
 
-                <v-card-text>
+                <v-card-text class="pt-4">
                     <node-description
                             :value="node.title"
                             @change="updateData => $emit('change', updateData)"
                     ></node-description>
-                    <node-statistics :statistics="node.learning_statistics"></node-statistics>
                 </v-card-text>
             </v-card>
         </template><!--/NODE GENERAL INFORMATION-->

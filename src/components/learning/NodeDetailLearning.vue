@@ -60,7 +60,11 @@
                     'studyNode', 
                     [this.$store.getters.getCurrentNodeId, this.studyRating * 2]
                 );
-                this.$router.push({name: 'learning.node', params: {nodeId: next}})
+                if (next) {
+                    this.$router.push({name: 'learning.node', params: {nodeId: next}});
+                    return
+                }
+                this.$router.push({name: 'learning.session.finished'})
             }
         }
     }

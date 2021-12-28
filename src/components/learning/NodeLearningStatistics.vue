@@ -1,40 +1,22 @@
 <template>
-    <v-container fluid class="pa-0 mt-7">
-        <v-container fluid class="pa-0 ma-0">
-            <h3>Learning statistics</h3>
-        </v-container>
-        <div class="d-flex align-center">
-            <v-icon small class="mr-2">mdi-calendar</v-icon>
-            <span class="caption">
-                Next repetition: {{ 
-                    $store.getters.getCurrentlearningSession
-                    ? 'Now'
-                    : nextRepetitionBuitified 
-                }}
-            </span>
+    <v-container fluid class="d-flex pl-0">
+        <div class="mr-2">
+            <v-icon small class="mr-3">mdi-eye</v-icon>
+            <span class="caption">{{ statistics.views }}</span>
         </div>
-        <v-row class="mt-1">
-            <v-col cols="3" class="d-flex flex-column align-center">
-                <v-icon class="my-1">mdi-eye</v-icon>
-                <span class="caption">{{ statistics.views }}</span>
-                <span class="caption">Views</span>
-            </v-col>
-            <v-col cols="3" class="d-flex flex-column align-center">
-                <v-icon class="my-1">mdi-repeat</v-icon>
-                <span class="caption">{{ statistics.repetitions }}</span>
-                <span class="caption">Repetitions</span>
-            </v-col>
-            <v-col cols="3" class="d-flex flex-column align-center">
-                <v-icon class="my-1">mdi-lightbulb</v-icon>
-                <span class="caption">{{ statistics.easiness }}</span>
-                <span class="caption">Understanding</span>
-            </v-col>
-            <v-col cols="3" class="d-flex flex-column align-center">
-                <v-icon class="my-1">mdi-star</v-icon>
-                <span class="caption">{{ statistics.average_rate }}</span>
-                <span class="caption">Average rate</span>
-            </v-col>
-        </v-row>
+        <div class="mx-2">
+            <v-icon small class="mr-3">mdi-repeat</v-icon>
+            <span class="caption">{{ statistics.repetitions }}</span>
+        </div>
+        <div class="mx-2">
+            <v-icon small class="mr-3">mdi-lightbulb</v-icon>
+            <span class="caption">{{ statistics.easiness }}</span>
+        </div>
+
+        <div class="mx-2">
+            <v-icon small class="mr-3">mdi-star</v-icon>
+            <span class="caption">{{ statistics.average_rate }}</span>
+        </div>
     </v-container>
 </template>
 
