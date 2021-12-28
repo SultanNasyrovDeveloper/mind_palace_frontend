@@ -52,11 +52,7 @@
         </template><!--/NODE MEDIA-->
 
         <!--NODE CONNECTIONS TABLE-->
-        <template v-slot:connections>
-            <v-card>
-                <v-card-title>Connections table</v-card-title>
-            </v-card>
-        </template><!--/NODE CONNECTIONS TABLE-->
+        <template v-slot:connections></template><!--/NODE CONNECTIONS TABLE-->
     </base-node-detail>
 </template>
 

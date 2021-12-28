@@ -3,10 +3,8 @@
         <v-app-bar app clipped-left class="grey lighten-3" elevation="1">
             <v-toolbar-title>
                 <router-link :to="{name: 'dashboard'}" class="text-decoration-none">
-                    <span 
-                            class="h6 font-weight-black teal--text text--lighten-1"
-                            style="letter-spacing: 2px">
-                        MINDASE
+                    <span class="h6 font-weight-black teal--text text--lighten-1">
+                        MINDASE:alfa
                     </span>
                 </router-link>
             </v-toolbar-title>

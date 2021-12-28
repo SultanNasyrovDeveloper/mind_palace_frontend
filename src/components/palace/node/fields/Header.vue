@@ -11,7 +11,7 @@
                                 class="mr-4"
                                 @click="goBackToMindPalace"
                         >
-                            <v-icon>mdi-arrow-left-bold-box</v-icon>
+                            <v-icon>mdi-arrow-left-bold</v-icon>
                         </v-btn>
                         <node-breadcrumbs :items="node.ancestors"></node-breadcrumbs>
                     </v-col>

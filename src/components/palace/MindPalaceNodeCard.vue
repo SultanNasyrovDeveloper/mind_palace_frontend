@@ -56,9 +56,10 @@
                                     @click="$router.push({name: 'mypalace', params: {rootId: subnode.id}})"
                             >{{ subnode.name }}</span>
                         </v-col>
-                        <v-col cols="4" class="ma-0 py-0 d-flex justify-space-around">
+                        <v-col cols="4" class="ma-0 py-0 d-flex justify-end">
                             <v-icon
                                     x-small
+                                    class="mx-2"
                                     color="red lighten-2"
                                     style="cursor: pointer;"
                                     @click="$emit('deleteClick', subnode)"
@@ -67,6 +68,7 @@
                             </v-icon>
                             <v-icon
                                     x-small
+                                    class="ml-2"
                                     style="cursor: pointer"
                                     @click="$emit('detailClick', subnode.id)"
                             >
