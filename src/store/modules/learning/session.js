@@ -81,7 +81,6 @@ const actions = {
             .then(response => {
                 if (response.status === 200) {
                     const next = response.data.next;
-                    debugger;
                     if (next) {
                         commit('setCurrentLearningNodeId', next);
                         commit('setSnackbarText', 'Node study completed.');

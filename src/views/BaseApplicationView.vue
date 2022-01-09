@@ -1,6 +1,6 @@
 <template>
     <v-container fluid class="ma-0 pa-0 fill-height grey lighten-4">
-        <v-app-bar app clipped-left class="grey lighten-3" elevation="1">
+        <v-app-bar app clipped-left elevation="1" class="white">
             <v-toolbar-title>
                 <router-link :to="{name: 'dashboard'}" class="text-decoration-none">
                     <span class="h6 font-weight-black teal--text text--lighten-1">
@@ -12,7 +12,7 @@
             <user-navbar-menu></user-navbar-menu>
         </v-app-bar>
 
-        <v-navigation-drawer app clipped mini-variant mobile-breakpoint="0" class="grey lighten-3">
+        <v-navigation-drawer app clipped mini-variant mobile-breakpoint="0">
             <v-list>
                 <v-list-item :to="{name: 'dashboard'}">
                     <v-list-item-icon><v-icon>mdi-view-dashboard-variant</v-icon></v-list-item-icon>
