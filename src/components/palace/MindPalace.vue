@@ -1,6 +1,6 @@
 <template>
     <v-container fluid class="fill-height d-block pa-0">
-        <v-row justify="end" class="mb-3">
+        <v-row justify="end" class="my-1">
             <v-col cols="4">
                 <mind-palace-root-card
                         :node="root"
@@ -22,7 +22,7 @@
                 </v-btn>
             </v-col>
         </v-row>
-        <v-container fluid class="px-0">
+        <v-container fluid class="px-0 pt-0">
             <v-row no-gutters>
                 <v-col
                         cols="12"

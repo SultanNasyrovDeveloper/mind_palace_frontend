@@ -12,7 +12,7 @@
             </v-btn>
         </v-card-title>
         <v-card-subtitle class="d-flex flex-column">
-            <v-container fluid class="d-flex ma-0 pa-0 mb-3 ">
+            <v-container fluid class="d-flex ma-0 pa-0 mb-3">
                 <div class="mr-3">
                     <v-icon x-small class="my-1 mr-2">mdi-eye</v-icon>
                     <span class="caption">{{ node.learning_statistics.views }}</span>
