@@ -1,11 +1,19 @@
 <template>
-    <v-container fluid class="fill-height d-block">
-        <v-row>
-            <v-col cols="12" class="d-flex justify-end">
+    <v-container fluid class="fill-height d-block pa-0">
+        <v-row justify="end" class="mb-3">
+            <v-col cols="4">
+                <mind-palace-root-card
+                        :node="root"
+                        @detailClick="(nodeId) => $emit('nodeDetailClick', nodeId)"
+                        @delete="confirmNodeDelete"
+                        @createSubnode="openCreateSubnodeForm"
+                ></mind-palace-root-card>
+            </v-col>
+            <v-col cols="4" class="d-flex justify-end">
                 <v-btn
                         icon
                         large
-                        v-if="$store.getters.getMindPalaceRootParentId"
+                        :disabled="!$store.getters.getMindPalaceRootParentId"
                         :to="{name: 'mypalace', params: {rootId: $store.getters.getMindPalaceRootParentId}}"
                 >
                     <v-icon>
@@ -14,17 +22,7 @@
                 </v-btn>
             </v-col>
         </v-row>
-        <v-row justify="center" class="mb-3">
-            <v-col cols="12" sm="6" md="4">
-                <mind-palace-root-card
-                        :node="root"
-                        @detailClick="(nodeId) => $emit('nodeDetailClick', nodeId)"
-                        @delete="confirmNodeDelete"
-                        @createSubnode="openCreateSubnodeForm"
-                ></mind-palace-root-card>
-            </v-col>
-        </v-row>
-        <draggable v-model="root.children" draggable=".item">
+        <v-container fluid class="px-0">
             <v-row no-gutters>
                 <v-col
                         cols="12"
@@ -44,7 +42,7 @@
                     ></mind-palace-node-card>
                 </v-col>
             </v-row>
-        </draggable>
+        </v-container>
         <v-dialog
                 v-model="nodeDeleteConfirmationModal"
                 max-width="600"
