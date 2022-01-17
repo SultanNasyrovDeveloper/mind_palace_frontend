@@ -8,6 +8,12 @@
                 :root="$store.getters.getMindPalace"
                 @nodeDetailClick="goToNodeDetail"
         ></mind-palace>
+        <v-overlay :value="loading">
+            <v-progress-circular
+                indeterminate
+                size="64"
+            ></v-progress-circular>
+        </v-overlay>
     </v-container>
 </template>
 
@@ -26,7 +32,8 @@
         components: { MindPalace, NodeDetail },
         data() {
             return {
-                showNodeDetailModal: false
+                showNodeDetailModal: false,
+                loading: false
             }
         },
         methods: {
@@ -39,11 +46,17 @@
         },
         watch: {
             async rootId() {
+                this.loading = true;
                 await this.$store.dispatch('fetchMindPalace', this.rootId);
+                this.loading = false;
             }
         },
         async mounted() {
-            if (this.rootId) await this.$store.dispatch('fetchMindPalace', this.rootId);
+            if (this.rootId) {
+                this.loading = true;
+                await this.$store.dispatch('fetchMindPalace', this.rootId);
+                this.loading = false;
+            }
         }
     }
 </script>

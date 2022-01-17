@@ -8,7 +8,8 @@
                     class="ml-3" 
                     eleation="1" 
                     @click="toggleIsEdited">
-                {{ isEdited? 'Close': 'Change' }}</v-btn>
+                <span>{{ isEdited? 'CLOSE': 'CHANGE' }}</span>
+            </v-btn>
         </div>
         <span
                 v-if="!isEdited"

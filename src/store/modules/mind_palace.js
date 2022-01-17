@@ -148,7 +148,6 @@ const actions = {
             .then(response => {
                 commit('updateMindPalaceNode', [response.data]);
                 if (nodeId == getters.getCurrentNodeId) {
-                    debugger;
                     commit('setCurrentNode', response.data);
                 }
             })

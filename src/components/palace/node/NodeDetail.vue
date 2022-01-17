@@ -22,7 +22,7 @@
                             </v-col>
                             <v-col cols="4" class="d-flex align-start justify-end mx-0 pa-0">
                                 <v-icon @click="$router.push({name: 'mypalace', params: {rootId: node.id}})">
-                                    mdi-sitemap
+                                    mdi-file-tree
                                 </v-icon>
                                 <v-icon class="ml-3" @click="() => {}">
                                     mdi-dots-vertical
