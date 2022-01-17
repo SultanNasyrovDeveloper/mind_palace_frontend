@@ -7,6 +7,20 @@
                     <node-breadcrumbs :items="node.ancestors"></node-breadcrumbs>
                     <span class="headline mt-3">{{ node.name }}</span>
                 </v-container>
+                
+                <v-container fluid class="d-flex flex-column align-center">
+                    <div class="d-flex">
+                        <div class="d-flex align-center mx-2">
+                            <v-icon small class="mr-1">mdi-repeat</v-icon>
+                            <span>Total repetitions: {{ session.total_repetitions }}</span>
+                        </div>
+                        <div class="d-flex align-center mx-2">
+                            <v-icon small class="mr-1">mdi-star</v-icon>
+                            <span>Average rating: {{ session.average_rating }}</span>
+                        </div>
+                    </div>
+                    <span>Started: {{ sessionStarted }}</span>
+                </v-container>
 
                 <v-container class="d-flex justify-center mt-5">
                     <v-btn 
@@ -34,13 +48,22 @@
 
     import NodeBreadcrumbs from '@/components/palace/node/fields/Breadcrumbs';
 
+    const moment = require('moment');
+
 
     export default {
         name: "NodeLearningCard",
         props: ['nodeId'],
         components: { NodeBreadcrumbs, },
         computed: {
-            ...mapGetters({node: 'getCurrentNode'}),
+            ...mapGetters({
+                node: 'getCurrentNode', 
+                session: 'getCurrentLearningSession'
+            }),
+            sessionStarted() {
+                const startDatetime = moment.utc(this.session.start_datetime);
+                return startDatetime.fromNow()
+            }
         },
         methods: {
             async finishSession() {

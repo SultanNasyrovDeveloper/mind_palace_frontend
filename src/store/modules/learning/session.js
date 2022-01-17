@@ -81,6 +81,8 @@ const actions = {
             .then(response => {
                 if (response.status === 200) {
                     const next = response.data.next;
+                    const newSession = response.data.session;
+                    commit('setCurrentLearningSession', newSession);
                     if (next) {
                         commit('setCurrentLearningNodeId', next);
                         commit('setSnackbarText', 'Node study completed.');

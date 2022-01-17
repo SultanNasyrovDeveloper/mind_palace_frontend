@@ -1,6 +1,6 @@
 <template>
     <v-container fluid class="ma-0 pa-0 fill-height grey lighten-4">
-        <v-app-bar app clipped-left elevation="1" class="white">
+        <v-app-bar app clipped-left elevation="1">
             <v-toolbar-title>
                 <router-link :to="{name: 'dashboard'}" class="text-decoration-none">
                     <span class="h6 font-weight-black teal--text text--lighten-1">
